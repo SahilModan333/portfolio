@@ -11,24 +11,24 @@ permissions:
 
 jobs:
   deploy:
-    name: Build and Deploy
+    name: Build and Deploy Portfolio
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-          run_install: false
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -43,4 +43,4 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy to S3
-        run: aws s3 sync ./dist s3://sahilops2026 --delete
+        run: aws s3 sync ./dist s3://YOUR-BUCKET-NAME --delete
