@@ -8,7 +8,7 @@ export const profile = {
   email: "sahilmodan333@gmail.com",
   github: "https://github.com/SahilModan333",
   linkedin: "https://www.linkedin.com/in/sahil-modan-b5a73b184/",
-  resumePath: "/resume.pdf",
+  resumePath: "/Sahil Modan - Azure DevOps Resume.pdf",
 }
 
 export const snapshot = [
