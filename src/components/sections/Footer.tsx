@@ -3,7 +3,7 @@ import { Mail, FileText } from "lucide-react"
 import GithubIcon from "../ui/GithubIcon"
 import LinkedinIcon from "../ui/LinkedinIcon"
 
-export default function Footer() {
+export default function Footer({ onResumeOpen }: { onResumeOpen: () => void }) {
   return (
     <footer className="bg-slate-950 border-t border-white/6 py-10">
       <div className="max-w-6xl mx-auto px-6">
@@ -35,10 +35,11 @@ export default function Footer() {
               aria-label="Email" className="text-slate-700 hover:text-slate-400 transition-colors">
               <Mail size={16} />
             </a>
-            <a href={profile.resumePath} target="_blank" rel="noopener noreferrer"
-              aria-label="Resume" className="text-slate-700 hover:text-slate-400 transition-colors">
+            <button onClick={onResumeOpen}
+              aria-label="Preview and download resume"
+              className="text-slate-700 hover:text-slate-400 active:scale-[0.97] transition-all">
               <FileText size={16} />
-            </a>
+            </button>
           </div>
 
           <p className="text-xs text-slate-800">© 2026 Sahil Modan</p>

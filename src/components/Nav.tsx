@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, FileText } from "lucide-react"
-import { profile } from "../data/profile"
-
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
@@ -12,7 +10,7 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ]
 
-export default function Nav() {
+export default function Nav({ onResumeOpen }: { onResumeOpen: () => void }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [active, setActive] = useState("")
@@ -83,15 +81,15 @@ export default function Nav() {
               </a>
             )
           })}
-          <a
-            href={profile.resumePath}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-3 flex items-center gap-1.5 px-4 py-1.5 text-sm font-medium rounded-lg border border-sky-500/40 text-sky-400 hover:bg-sky-500/10 hover:border-sky-400 transition-all duration-200"
+          <button
+            onClick={onResumeOpen}
+            className="ml-3 flex items-center gap-1.5 px-4 py-1.5 text-sm font-medium rounded-full border border-sky-500/40 text-sky-400 hover:bg-sky-500/10 hover:border-sky-400 active:scale-[0.97] transition-all duration-150"
+            style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+            aria-label="Open resume preview — popup with download"
           >
             <FileText size={13} />
             Resume
-          </a>
+          </button>
         </div>
 
         {/* Mobile toggle */}
@@ -140,15 +138,16 @@ export default function Nav() {
               </a>
             ))}
             <div className="mt-1 pt-2 border-t border-white/8">
-              <a
-                href={profile.resumePath}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 text-sm text-sky-400 hover:bg-sky-500/8 rounded-xl transition-colors"
+              <button
+                onClick={() => {
+                  setMobileOpen(false)
+                  onResumeOpen()
+                }}
+                className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-sky-400 hover:bg-sky-500/8 rounded-xl transition-colors active:scale-[0.97]"
               >
                 <FileText size={14} />
-                Download Resume
-              </a>
+                Preview & Download Resume
+              </button>
             </div>
           </motion.div>
         )}
