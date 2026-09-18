@@ -5,7 +5,7 @@ import { Mail, FileText, ArrowRight } from "lucide-react"
 import GithubIcon from "../ui/GithubIcon"
 import LinkedinIcon from "../ui/LinkedinIcon"
 
-export default function Contact() {
+export default function Contact({ onResumeOpen }: { onResumeOpen: () => void }) {
   const { ref, isInView } = useInView()
 
   return (
@@ -35,45 +35,61 @@ export default function Contact() {
             <div className="h-px w-8 bg-sky-500/40" />
           </div>
 
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
-            Let's Build Better Infrastructure.
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight" style={{ textWrap: "balance" } as React.CSSProperties}>
+            Let's build reliable systems — together.
           </h2>
-          <p className="text-slate-400 mb-10 leading-relaxed">
-            Interested in DevOps, cloud infrastructure, automation, or engineering
-            opportunities? Let's connect.
+          <p className="text-slate-300 mb-3 leading-relaxed" style={{ textWrap: "pretty" } as React.CSSProperties}>
+            DevOps, cloud infrastructure, automation or platform work — let's talk.
+          </p>
+          <p className="text-xs text-slate-500 mb-10" style={{ fontFamily: "JetBrains Mono, monospace" }}>
+            Expected response: within 24h • Bengaluru (IST) • Available for freelance & full-time discussions
           </p>
 
-          {/* Email CTA */}
+          {/* Email CTA — visible email per 5.6 */}
           <motion.a
-            href={`mailto:${profile.email}`}
+            href={`mailto:${profile.email}?subject=Hello%20Sahil%20—%20from%20sahildevops.me`}
             whileHover={{ scale: 1.02, transition: { duration: 0.15 } }}
             whileTap={{ scale: 0.98 }}
             className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-sky-500 text-white font-semibold text-base hover:bg-sky-400 transition-colors duration-200 mb-8 group"
+            aria-label={`Email Sahil at ${profile.email} — expect reply within 24 hours`}
           >
             <Mail size={18} />
             {profile.email}
             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-200" />
           </motion.a>
 
-          {/* Secondary */}
+          {/* Secondary — resume now opens popup, not new tab directly */}
           <div className="flex flex-wrap items-center justify-center gap-4">
-            {[
-              { href: profile.github, icon: <GithubIcon size={15} />, label: "GitHub" },
-              { href: profile.linkedin, icon: <LinkedinIcon size={15} />, label: "LinkedIn" },
-              { href: profile.resumePath, icon: <FileText size={15} />, label: "Resume", download: true },
-            ].map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/12 text-slate-400 hover:text-white hover:border-white/25 text-sm transition-all duration-200"
-              >
-                {link.icon}
-                {link.label}
-              </a>
-            ))}
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/12 text-slate-400 hover:text-white hover:border-white/25 active:scale-[0.97] text-sm transition-all duration-150"
+              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+            >
+              <GithubIcon size={15} /> GitHub
+            </a>
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/12 text-slate-400 hover:text-white hover:border-white/25 active:scale-[0.97] text-sm transition-all duration-150"
+              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+            >
+              <LinkedinIcon size={15} /> LinkedIn
+            </a>
+            <button
+              onClick={onResumeOpen}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-300 hover:text-white hover:bg-sky-500/15 hover:border-sky-400 active:scale-[0.97] text-sm transition-all duration-150"
+              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+              aria-label="Preview and download resume — opens popup"
+            >
+              <FileText size={15} /> Preview & Download Resume
+            </button>
           </div>
+          <p className="mt-4 text-xs text-slate-500" style={{ fontFamily: "JetBrains Mono, monospace" }}>
+            Popup shows live PDF • Esc to close • open <a href="/resume" className="text-sky-400 hover:underline underline-offset-4">HTML mirror</a> (crawlable)
+          </p>
         </motion.div>
       </div>
     </section>

@@ -8,7 +8,7 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "Cloud Platform",
     icon: "cloud",
-    skills: ["Microsoft Azure", "Azure Entra ID", "Azure Resource Manager", "Azure Backup", "Azure Repos"],
+    skills: ["Microsoft Azure", "Azure Entra ID", "Azure Resource Manager", "Azure Backup"],
   },
   {
     category: "CI/CD",

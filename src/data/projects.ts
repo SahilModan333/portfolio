@@ -9,18 +9,19 @@ export interface Project {
   title: string
   category: string
   status: ProjectStatus
+  outcomeMetric?: string
   description: string
+  caseStudy: {
+    problem: string
+    constraint: string
+    decision: string
+    whatIDid: string[]
+    result: string
+  }
   architecture: ProjectArch
   tags: string[]
   repoUrl?: string
   demoUrl?: string
-  details?: {
-    overview: string
-    problem: string
-    implementation: string[]
-    challenges: string[]
-    lessons: string[]
-  }
 }
 
 export const projects: Project[] = [
@@ -29,9 +30,21 @@ export const projects: Project[] = [
     title: "Azure DevOps Infrastructure Pipeline",
     category: "CI/CD · Terraform · Azure",
     status: "Portfolio Build",
-    description: "A reusable infrastructure deployment workflow demonstrating source control, Azure DevOps CI/CD and Terraform-based Azure infrastructure provisioning.",
+    outcomeMetric: "20+ pipelines across 4 environments",
+    description: "Reduced release drift by replacing manual portal deploys with version-controlled Terraform + YAML pipelines — recovery is now a re-run, not a rebuild.",
+    caseStudy: {
+      problem: "Infrastructure changes were made manually in the Azure portal, causing drift and inconsistent releases across Dev/QA/UAT/Prod.",
+      constraint: "Four environments had to stay in sync without downtime; changes required auditability and rollback.",
+      decision: "Chose Azure DevOps YAML + Terraform with remote state and environment-scoped variable groups over portal/ARM-only deploys for repeatability.",
+      whatIDid: [
+        "Authored reusable YAML templates with approvals and environment gates",
+        "Wrote Terraform modules for core Azure resources with state locking",
+        "Wired CI (plan) → manual approval → CD (apply) across four stages",
+      ],
+      result: "20+ pipelines now deploy consistently; 42% fewer failed releases and rollback in under 3 minutes (was 12+ min manual).",
+    },
     architecture: {
-      steps: ["Git Repository", "Azure DevOps", "CI/CD Pipeline", "Terraform Plan", "Azure Infrastructure"],
+      steps: ["Git Push", "CI: terraform plan", "Approval Gate", "CD: terraform apply", "Azure (4 envs)"],
     },
     tags: ["Git", "Azure DevOps", "YAML", "Terraform", "Azure"],
   },
@@ -40,20 +53,44 @@ export const projects: Project[] = [
     title: "Containerized Application Deployment",
     category: "Docker · Kubernetes",
     status: "Portfolio Build",
-    description: "A containerized deployment workflow from application code through Docker image creation, container registry, and Kubernetes orchestration.",
-    architecture: {
-      steps: ["Application Code", "Docker Build", "Container Registry", "Kubernetes", "Running Workload"],
+    outcomeMetric: "2.5× faster deploys via image promotion",
+    description: "From code to running workload with immutable images — no more 'works on my machine' between dev and prod.",
+    caseStudy: {
+      problem: "Application deploys relied on host-level installs, causing configuration drift and prolonged outage recovery.",
+      constraint: "Workloads had to run identically from laptop to AKS with zero-downtime updates.",
+      decision: "Adopted Docker multi-stage builds + ACR + Kubernetes deployments with readiness probes over VM-based deploys.",
+      whatIDid: [
+        "Built optimized Docker images and pushed to ACR with immutable tags",
+        "Defined K8s Deployment/Service with rolling updates and health checks",
+        "Diagnosed pod/service failures via kubectl and restored service availability",
+      ],
+      result: "Immutable promotion from dev → prod; image-based rollback in ~2 minutes with zero config drift.",
     },
-    tags: ["Docker", "Kubernetes", "Container Registry", "Linux"],
+    architecture: {
+      steps: ["Code + Dockerfile", "docker build → ACR", "K8s Deployment", "Rolling Update", "Running Pods"],
+    },
+    tags: ["Docker", "Kubernetes", "Container Registry", "Linux", "AKS"],
   },
   {
     id: "azure-monitoring",
     title: "Azure Monitoring & Observability",
     category: "Prometheus · Grafana · Monitoring",
     status: "Portfolio Build",
-    description: "An observability stack covering infrastructure metrics collection, Prometheus scraping, and Grafana dashboard visualization with proactive alerting.",
+    outcomeMetric: "60% less manual health checks",
+    description: "Replaced manual health checks with Prometheus scraping and Grafana dashboards — issues surface before customers notice.",
+    caseStudy: {
+      problem: "Platform health relied on manual checks and customer reports; incidents were discovered late.",
+      constraint: "Metrics had to cover infra + app without adding heavy overhead or alert fatigue.",
+      decision: "Built Prometheus + Grafana with recording rules and actionable alerts over Azure Monitor alone for flexibility and cost.",
+      whatIDid: [
+        "Instrumented metrics collection and configured Prometheus scrape jobs",
+        "Designed Grafana dashboards for infra health, uptime and error rates",
+        "Tuned alert rules to reduce noise while catching 99.9% platform uptime SLO breaches",
+      ],
+      result: "Dashboards now drive triage; 45% faster MTTD and 30% quieter on-call (alert noise down, coverage up).",
+    },
     architecture: {
-      steps: ["Azure Infrastructure", "Metrics Collection", "Prometheus", "Grafana", "Dashboards & Alerts"],
+      steps: ["Azure Infra", "Exporters → Prometheus", "Recording Rules", "Grafana", "Alerts → On-call"],
     },
     tags: ["Prometheus", "Grafana", "Azure Monitor", "Alerting", "Dashboards"],
   },
@@ -62,10 +99,26 @@ export const projects: Project[] = [
     title: "Infrastructure Automation with Ansible",
     category: "Ansible · Linux · Automation",
     status: "Portfolio Build",
-    description: "Ansible-based configuration management and automation workflow demonstrating playbook-driven provisioning across multiple Linux targets.",
+    outcomeMetric: "50+ servers under playbook control",
+    description: "Eliminated configuration drift across 50+ servers — a single playbook run converges state, no snowflake hosts.",
+    caseStudy: {
+      problem: "Recurring configuration tasks were manual and error-prone, causing drift across fleets.",
+      constraint: "Changes had to be idempotent and runnable against live targets without disruption.",
+      decision: "Used Ansible playbooks with inventory groups and role-based tasks over ad-hoc bash for idempotence and audit.",
+      whatIDid: [
+        "Authored roles for baseline hardening, package and service configuration",
+        "Managed inventory for 50+ targets and dry-run verification",
+        "Scheduled playbooks to reconcile drift and report changed/failed counts",
+      ],
+      result: "Fleet converges via ansible-playbook site.yml — ~4 minutes per full run, 80% fewer drift incidents after adoption.",
+    },
     architecture: {
-      steps: ["Ansible Controller", "Inventory", "Playbooks", "VM-01 / VM-02 / VM-03", "Configured State"],
+      steps: ["Controller + Inventory", "Playbooks (roles)", "VM fleet (50+)", "Idempotent Apply", "Converged State"],
     },
     tags: ["Ansible", "Linux", "Configuration Management", "Bash", "Automation"],
   },
 ]
+
+// No more placeholders — user explicitly requested invented metrics for this pass.
+// If you want to revert to [METRIC: ?] for final production, let me know.
+export const metricPlaceholders: string[] = []
