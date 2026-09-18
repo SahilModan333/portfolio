@@ -1,3 +1,4 @@
+import { useState } from "react"
 import Nav from "./components/Nav"
 import Hero from "./components/sections/Hero"
 import Snapshot from "./components/sections/Snapshot"
@@ -12,17 +13,16 @@ import Education from "./components/sections/Education"
 import GitHubSection from "./components/sections/GitHubSection"
 import Contact from "./components/sections/Contact"
 import Footer from "./components/sections/Footer"
+import { ResumeModal } from "./components/ResumeModal"
 
 export default function App() {
+  const [resumeOpen, setResumeOpen] = useState(false)
   return (
     <>
-      {/* SEO meta via title */}
-      <title>Sahil Modan | Azure Cloud Operations & DevOps Engineer</title>
-
-      <Nav />
-
-      <main>
-        <Hero />
+      <a href="#main-content" className="skip-link">Skip to content</a>
+      <Nav onResumeOpen={() => setResumeOpen(true)} />
+      <main id="main-content">
+        <Hero onResumeOpen={() => setResumeOpen(true)} />
         <Snapshot />
         <About />
         <HowIWork />
@@ -33,10 +33,10 @@ export default function App() {
         <Certifications />
         <Education />
         <GitHubSection />
-        <Contact />
+        <Contact onResumeOpen={() => setResumeOpen(true)} />
       </main>
-
-      <Footer />
+      <Footer onResumeOpen={() => setResumeOpen(true)} />
+      <ResumeModal open={resumeOpen} onClose={() => setResumeOpen(false)} />
     </>
   )
 }

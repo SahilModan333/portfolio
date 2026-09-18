@@ -21,7 +21,7 @@ export default function Education() {
   const { ref, isInView } = useInView()
 
   return (
-    <section className="py-16 bg-slate-50 border-t border-slate-100">
+    <section id="education" className="py-16 bg-slate-50 border-t border-slate-100">
       <div className="max-w-6xl mx-auto px-6">
         <div ref={ref as React.RefObject<HTMLDivElement>}>
           <motion.div
@@ -29,7 +29,7 @@ export default function Education() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
           >
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-3">
               <div className="h-px w-8 bg-slate-300" />
               <span
                 className="text-xs font-medium text-slate-400 tracking-[0.18em] uppercase"
@@ -38,6 +38,7 @@ export default function Education() {
                 Education
               </span>
             </div>
+            <h2 className="text-2xl font-bold text-slate-900 mb-6" style={{ fontFamily: "Space Grotesk, sans-serif" }}>Education &amp; Foundation</h2>
 
             <div className="flex flex-col sm:flex-row gap-4">
               {education.map((edu, i) => (

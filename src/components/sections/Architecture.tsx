@@ -21,7 +21,7 @@ export default function Architecture() {
   const hoveredNode = pipeline.find((n) => n.id === hovered)
 
   return (
-    <section className="py-24 bg-slate-950">
+    <section id="architecture" className="py-24 bg-slate-950">
       <div className="max-w-6xl mx-auto px-6">
         <div ref={ref as React.RefObject<HTMLDivElement>}>
           <motion.div

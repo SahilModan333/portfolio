@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "../../hooks/useInView"
 import { ArrowRight } from "lucide-react"
+import { getYearsLabel } from "../../data/config"
 
 const journey = [
   "Cloud Operations",
@@ -59,7 +60,7 @@ export default function About() {
                 production incident response.
               </p>
               <p>
-                Over 3+ years in cloud operations, I've developed working experience across
+                Over {getYearsLabel()} in cloud operations, I've developed working experience across
                 the Azure ecosystem, infrastructure-as-code tooling, container orchestration,
                 and configuration automation.
               </p>

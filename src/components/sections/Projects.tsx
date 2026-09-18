@@ -100,17 +100,41 @@ export default function Projects() {
                 </div>
 
                 <div className="flex flex-col flex-1 p-6">
-                  <h3 className="text-lg font-bold text-slate-900 mb-2.5 group-hover:text-sky-700 transition-colors">
+                  {/* Outcome metric — headline position per Phase 5.3, mono strictly for data */}
+                  {project.outcomeMetric && (
+                    <div className="mb-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 self-start">
+                      <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse" />
+                      <span className="text-xs font-semibold text-sky-700" style={{ fontFamily: "JetBrains Mono, monospace", fontVariantNumeric: "tabular-nums" }}>
+                        {project.outcomeMetric}
+                      </span>
+                    </div>
+                  )}
+                  <h3 className="text-lg font-bold text-slate-900 mb-2.5 group-hover:text-sky-700 transition-colors" style={{ textWrap: "balance" } as React.CSSProperties}>
                     {project.title}
                   </h3>
-                  <p className="text-sm text-slate-500 leading-relaxed mb-6 flex-1">
+                  <p className="text-sm text-slate-600 leading-relaxed mb-4 flex-1" style={{ textWrap: "pretty" } as React.CSSProperties}>
                     {project.description}
                   </p>
 
-                  {/* Architecture */}
-                  <div className="mb-5 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                    <div className="text-xs text-slate-400 mb-3 font-medium" style={{ fontFamily: "JetBrains Mono, monospace" }}>
-                      // deployment flow
+                  {/* Case study — Problem → Constraint → Decision → Result */}
+                  <div className="mb-5 rounded-xl border border-slate-200 bg-slate-50/60 p-4 space-y-3">
+                    <div className="grid gap-2 text-xs leading-relaxed">
+                      <p><span className="font-semibold text-slate-900">Problem:</span> <span className="text-slate-600">{project.caseStudy.problem}</span></p>
+                      <p><span className="font-semibold text-slate-900">Constraint:</span> <span className="text-slate-600">{project.caseStudy.constraint}</span></p>
+                      <p><span className="font-semibold text-slate-900">Decision:</span> <span className="text-slate-600">{project.caseStudy.decision}</span></p>
+                    </div>
+                    <ul className="list-disc pl-4 space-y-1 text-xs text-slate-600">
+                      {project.caseStudy.whatIDid.map((s, idx) => <li key={idx}>{s}</li>)}
+                    </ul>
+                    <p className="text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">
+                      Result: {project.caseStudy.result}
+                    </p>
+                  </div>
+
+                  {/* Architecture — inline SVG using tokens, not screenshot */}
+                  <div className="mb-5 p-4 rounded-xl bg-slate-950 border border-white/10">
+                    <div className="text-xs text-sky-400/70 mb-3 font-medium" style={{ fontFamily: "JetBrains Mono, monospace" }}>
+                      // architecture — inline SVG
                     </div>
                     <ArchDiagram steps={project.architecture.steps} />
                   </div>
@@ -141,7 +165,7 @@ export default function Projects() {
                       </span>
                     )}
                     <span className="text-slate-200">·</span>
-                    <span className="text-xs text-slate-400 italic">Portfolio Build — Details Coming Soon</span>
+                    <span className="text-xs text-slate-400 italic">Portfolio Build — diagram is token SVG, not screenshot</span>
                   </div>
                 </div>
               </motion.div>
