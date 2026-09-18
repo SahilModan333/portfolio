@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Not found | Sahil Modan</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Instrument+Sans:wght@400&family=JetBrains+Mono:wght@400&display=swap');
+    body{margin:0;min-height:100vh;display:grid;place-items:center;background:#080d1a;color:#e2e8f0;font-family:'Instrument Sans',sans-serif}
+    .card{max-width:560px;padding:48px;text-align:center;border:1px solid rgba(255,255,255,0.08);border-radius:20px;background:rgba(255,255,255,0.03)}
+    h1{font-family:'Space Grotesk',sans-serif;font-size:48px;margin:0 0 12px;letter-spacing:-0.03em}
+    p{color:#94a3b8}
+    a{display:inline-flex;margin-top:24px;padding:12px 20px;background:#0ea5e9;color:white;border-radius:10px;text-decoration:none;font-weight:600}
+    code{font-family:'JetBrains Mono',monospace;color:#38bdf8}
+    ::selection{background:rgba(14,165,233,0.22);color:white}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#38bdf8;letter-spacing:0.18em">ERROR 404</div>
+    <h1>Control plane can't route this.</h1>
+    <p>The page <code id="path"></code> doesn't exist — maybe it was decommissioned.</p>
+    <a href="/">← Return to sahildevops.me</a>
+    <p style="margin-top:16px;font-size:12px;color:#475569">If you followed a link from the resume, try <a href="/resume" style="color:#38bdf8;background:none;padding:0">/resume</a> or <a href="/Sahil_Modan_DevOps_Engineer_Resume.pdf" target="_blank" style="color:#38bdf8;background:none;padding:0">download PDF</a>.</p>
+  </div>
+  <script>document.getElementById('path').textContent = location.pathname;</script>
+</body>
+</html>
