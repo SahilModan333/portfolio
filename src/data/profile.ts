@@ -1,18 +1,23 @@
+import { siteConfig, getYearsLabel } from "./config"
+
 export const profile = {
-  name: "Sahil Modan",
-  title: "Cloud Operations Engineer",
-  tagline: "Azure Cloud Operations → DevOps Engineering",
-  headline: "Building reliable cloud infrastructure, automation & deployment systems.",
-  bio: "Azure Cloud Operations Engineer with 3+ years of experience working with production Azure environments, CI/CD pipelines, infrastructure automation, containers, monitoring and production operations.",
-  location: "Bengaluru, Karnataka",
-  email: "sahilmodan333@gmail.com",
-  github: "https://github.com/SahilModan333",
-  linkedin: "https://www.linkedin.com/in/sahil-modan-b5a73b184/",
-  resumePath: "/Sahil Modan - Azure DevOps Resume.pdf",
+  name: siteConfig.name,
+  title: siteConfig.role,
+  tagline: siteConfig.tagline,
+  headline: siteConfig.headline,
+  // Derived from siteConfig.careerStartDate (2022-05) — never hardcode years again
+  bio: `Azure Cloud Operations Engineer with ${getYearsLabel()} of experience working with production Azure environments, CI/CD pipelines, infrastructure automation, containers, monitoring and production operations.`,
+  location: siteConfig.location,
+  email: siteConfig.email,
+  github: siteConfig.social.github,
+  linkedin: siteConfig.social.linkedin,
+  // Canonical resume path per Phase 4.4 — legacy kept in public/ but not deleted
+  resumePath: siteConfig.resume.canonicalPath,
+  legacyResumePath: siteConfig.resume.legacyPath,
 }
 
 export const snapshot = [
-  { label: "Years Experience", value: "3+", category: "Azure Cloud Platform" },
+  { label: "Years Experience", value: getYearsLabel(), category: "Azure Cloud Platform" },
   { label: "CI/CD Pipelines", value: "Azure DevOps", category: "Pipeline Design & Maintenance" },
   { label: "IaC Tools", value: "Terraform · ARM", category: "Infrastructure as Code" },
   { label: "Operations", value: "Production Support", category: "Incident Management & RCA" },

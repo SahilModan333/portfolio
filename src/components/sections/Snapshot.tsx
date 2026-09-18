@@ -1,9 +1,10 @@
 import { motion } from "framer-motion"
 import { useInView } from "../../hooks/useInView"
 import { Cloud, GitMerge, Layers, Shield } from "lucide-react"
+import { getYearsLabel } from "../../data/config"
 
 const items = [
-  { icon: Cloud, value: "3+", unit: "Years", label: "Production Azure Experience", tag: "Cloud Platform" },
+  { icon: Cloud, value: getYearsLabel(), unit: "", label: "Production Azure Experience", tag: "Cloud Platform" },
   { icon: GitMerge, value: "CI/CD", unit: "", label: "Pipeline Design & Maintenance", tag: "Azure DevOps" },
   { icon: Layers, value: "IaC", unit: "", label: "Infrastructure as Code", tag: "Terraform · ARM" },
   { icon: Shield, value: "Ops", unit: "", label: "Incident Management & RCA", tag: "Production Support" },

@@ -8,7 +8,7 @@ export default function GitHubSection() {
   const { ref, isInView } = useInView()
 
   return (
-    <section className="py-16 bg-white border-t border-slate-100">
+    <section id="github" className="py-16 bg-white border-t border-slate-100">
       <div className="max-w-6xl mx-auto px-6">
         <div ref={ref as React.RefObject<HTMLDivElement>}>
           <motion.div
