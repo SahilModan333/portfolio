@@ -1,7 +1,9 @@
+import { useState } from "react"
 import Nav from "./components/Nav"
-import Hero from "./components/sections/Hero"
-import Work from "./components/sections/Work"
-import Build from "./components/sections/Build"
+import GarageHero from "./components/sections/GarageHero"
+import CareerTimeline from "./components/sections/CareerTimeline"
+import ControlPlaneSimulator from "./components/interactive/ControlPlaneSimulator"
+import GarageGrid from "./components/sections/GarageGrid"
 import DevOpsPipeline from "./components/sections/DevOpsPipeline"
 import Terminal from "./components/sections/Terminal"
 import Incidents from "./components/sections/Incidents"
@@ -11,12 +13,27 @@ import HireMe from "./components/sections/HireMe"
 import Footer from "./components/sections/Footer"
 import FloatingDock from "./components/ui/FloatingDock"
 import GlowCursor from "./components/ui/GlowCursor"
+import CommandPalette from "./components/ui/CommandPalette"
 
 export default function App() {
+  const [isCmdOpen, setIsCmdOpen] = useState(false)
+
+  const scrollToTerminal = () => {
+    const el = document.getElementById("terminal")
+    if (el) el.scrollIntoView({ behavior: "smooth" })
+  }
+
   return (
-    <div className="relative min-h-screen bg-[#080b11] text-slate-100 selection:bg-sky-500/30 selection:text-white">
+    <div className="relative min-h-screen bg-[#070b14] text-slate-100 selection:bg-sky-500/30 selection:text-white">
       {/* GSAP Ambient Glow Cursor */}
       <GlowCursor />
+
+      {/* Bryan Garage Style Command Palette (⌘K / Ctrl+K) */}
+      <CommandPalette
+        isOpen={isCmdOpen}
+        onClose={() => setIsCmdOpen(false)}
+        onOpenTerminal={scrollToTerminal}
+      />
 
       {/* Skip to Content for Accessibility */}
       <a
@@ -26,40 +43,59 @@ export default function App() {
         Skip to main content
       </a>
 
-      {/* Top Sticky Header */}
-      <Nav />
+      {/* Minimal Top Header with ⌘K Trigger */}
+      <Nav
+        onOpenCommandPalette={() => setIsCmdOpen(true)}
+        onOpenTerminal={scrollToTerminal}
+      />
 
-      {/* Main Content Sections */}
+      {/* Main Content Sections (100% Scrollable, Continuous Flow — Zero Pagination) */}
       <main id="main">
-        {/* 1. Hero & Control Plane Deploy Simulator */}
-        <Hero />
+        {/* 1. Bryan Garage Style Narrative Hero with Blur Reveal & Inline Peek Cards */}
+        <GarageHero onOpenTerminal={scrollToTerminal} />
 
-        {/* 2. Production Experience & Engineering Profile */}
-        <Work />
+        {/* 2. Visual Timeline Track (2016–2026 Ruler Scale) */}
+        <CareerTimeline />
 
-        {/* 3. Engineered Builds & Portfolio Projects */}
-        <Build />
+        {/* 3. Live Control Plane Deploy Simulator */}
+        <section id="control-plane" className="relative mx-auto max-w-6xl px-6 lg:px-8 py-10">
+          <div className="mb-4">
+            <span className="font-mono text-xs font-semibold uppercase tracking-wider text-sky-400">
+              Interactive Execution Stage
+            </span>
+            <h3 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+              Live Control Plane &amp; Rolling Deploy Simulator
+            </h3>
+            <p className="mt-1 text-sm text-slate-400">
+              Visual simulation of the multi-stage Azure DevOps to AKS pipeline.
+            </p>
+          </div>
+          <ControlPlaneSimulator />
+        </section>
 
-        {/* 4. 9-Stage DevOps Pipeline (Code to Infrastructure) */}
+        {/* 4. The Garage Grid: 4 Core Architectural Builds in Bento Cells */}
+        <GarageGrid />
+
+        {/* 5. 9-Stage DevOps Pipeline (Code to Infrastructure) */}
         <DevOpsPipeline />
 
-        {/* 5. Interactive SRE Terminal Shell */}
+        {/* 6. Interactive SRE Terminal Shell */}
         <Terminal />
 
-        {/* 6. Incident Triage & Runbook Simulator */}
+        {/* 7. Incident Triage & Runbook Simulator */}
         <Incidents />
 
-        {/* 7. Technology Stack & Tools */}
+        {/* 8. Technology Stack & Tools */}
         <Stack />
 
-        {/* 8. Microsoft Certifications & Academic Education */}
+        {/* 9. Microsoft Certifications & Academic Education */}
         <Credentials />
 
-        {/* 9. Hire Me / Work With Me */}
+        {/* 10. Tactile Hire Me / Work With Me */}
         <HireMe />
       </main>
 
-      {/* TasteSkill-style Fluid Floating Dock Navigation */}
+      {/* Fluid Floating Dock Navigation */}
       <FloatingDock />
 
       {/* Footer */}
