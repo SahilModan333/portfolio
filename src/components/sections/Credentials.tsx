@@ -1,95 +1,18 @@
-import { certifications, education } from "../../data/certifications"
+import { education } from "../../data/certifications"
 import { profile } from "../../data/profile"
 import Section from "../ui/Section"
-import { ArrowUpRightIcon, ShieldIcon, CheckIcon, GithubIcon } from "../ui/Icons"
-import SpotlightCard from "../ui/SpotlightCard"
+import { ArrowUpRightIcon, GithubIcon } from "../ui/Icons"
 
 export default function Credentials() {
   return (
     <Section
-      id="certifications"
-      label="Accreditation &amp; Education"
-      title="Verified Microsoft certifications &amp; academic foundation"
-      intro="Official Microsoft Azure credentials culminating in the DevOps Engineer Expert track, coupled with an advanced Master's degree in Cloud Systems &amp; Infrastructure Management."
+      id="education"
+      label="Academic Foundation &amp; Open Source"
+      title="Computer systems education &amp; open source engineering"
+      intro="Formal Master's degree in Cloud Systems &amp; Infrastructure Management, coupled with foundational Computer Science study and active open-source contributions."
     >
-      {/* 3-Column Microsoft Certifications Grid with 21st.dev Spotlight Cards */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        {certifications.map((cert) => {
-          const isExpert = cert.level === "Expert"
-          return (
-            <SpotlightCard
-              key={cert.code}
-              spotlightColor={isExpert ? "rgba(56, 189, 248, 0.22)" : "rgba(129, 140, 248, 0.16)"}
-              className={`p-6 transition-all duration-300 ${
-                isExpert
-                  ? "border-sky-500/50 bg-slate-900/80 shadow-xl shadow-sky-500/10 ring-1 ring-sky-500/30"
-                  : "hover:border-white/20"
-              }`}
-            >
-              <div className="flex h-full flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-3xl font-extrabold tracking-tight text-white">
-                      {cert.code}
-                    </span>
-                    <span
-                      className={`rounded-full px-2.5 py-0.5 font-mono text-xs font-semibold ${
-                        isExpert
-                          ? "border border-sky-400/40 bg-sky-400/20 text-sky-200"
-                          : "border border-white/10 bg-white/[0.05] text-slate-300"
-                      }`}
-                    >
-                      {cert.level}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-4 text-lg font-bold tracking-tight text-white">
-                    {cert.title}
-                  </h3>
-                  <p className="mt-1 font-mono text-xs text-sky-400">
-                    {cert.issuer}
-                  </p>
-
-                  {/* Covered Skills */}
-                  <div className="mt-6 border-t border-white/[0.06] pt-4">
-                    <h4 className="font-mono text-[0.7rem] uppercase tracking-wider text-slate-400">
-                      Validated Competencies:
-                    </h4>
-                    <ul className="mt-2 space-y-1.5 text-xs text-slate-300">
-                      {cert.skillsCovered.map((skill, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <CheckIcon size={13} className="mt-0.5 flex-none text-sky-400" />
-                          <span className="text-[0.78rem]">{skill}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="mt-8 border-t border-white/[0.08] pt-4">
-                  {cert.credentialUrl ? (
-                    <a
-                      href={cert.credentialUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2 font-mono text-xs font-medium text-slate-200 transition-colors hover:border-sky-500/40 hover:bg-sky-500/15 hover:text-white"
-                    >
-                      <ShieldIcon size={14} className="text-sky-400" />
-                      <span>{cert.verifyLabel || "View Credential on MS Learn"}</span>
-                      <ArrowUpRightIcon size={12} className="text-slate-400" />
-                    </a>
-                  ) : (
-                    <span className="font-mono text-xs text-slate-400">Microsoft Learn</span>
-                  )}
-                </div>
-              </div>
-            </SpotlightCard>
-          )
-        })}
-      </div>
-
       {/* Academic Education Section */}
-      <div className="mt-16 rounded-2xl border border-white/[0.08] bg-slate-900/50 p-6 backdrop-blur-md sm:p-8">
+      <div className="rounded-2xl border border-white/[0.08] bg-slate-900/50 p-6 backdrop-blur-md sm:p-8">
         <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-500/10 px-3 py-0.5 font-mono text-xs text-sky-300 mb-4">
           Education &amp; Foundation
         </div>

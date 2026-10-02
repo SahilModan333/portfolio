@@ -93,9 +93,9 @@ export default function DevOpsPipeline() {
   return (
     <Section
       id="pipeline"
-      label="DevOps Pipeline"
-      title="From code to production infrastructure"
-      intro="The end-to-end DevOps delivery workflow from developer commit through CI/CD automation, cloud infrastructure provisioning, and proactive monitoring. Hover any stage to explore."
+      label="DevOps Delivery Pipeline"
+      title="Code → Pipeline → IaC → Kubernetes → Telemetry"
+      intro="The automated engineering flow from feature commit in Azure Repos through multi-stage Azure DevOps YAML pipelines, Terraform infrastructure provisioning, AKS container deployment, and continuous Prometheus &amp; Grafana monitoring."
       sunk
     >
       {/* 9-Stage Pipeline Grid */}

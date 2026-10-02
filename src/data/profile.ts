@@ -112,6 +112,57 @@ export const serviceRecord: RecordRow[] = [
   },
 ]
 
+export interface ProductionResponsibility {
+  title: string
+  metric: string
+  badge: string
+  description: string
+  tech: string[]
+}
+
+export const productionResponsibilities: ProductionResponsibility[] = [
+  {
+    title: "Multi-Environment CI/CD Automation",
+    metric: "20+ Pipelines",
+    badge: "Azure DevOps",
+    description:
+      "Design, build, and maintain 20+ Azure DevOps YAML and release pipelines deploying application and infrastructure changes across Development, QA, UAT, and Production with high release consistency.",
+    tech: ["Azure DevOps", "YAML Pipelines", "Release Gates", "Azure Repos"],
+  },
+  {
+    title: "Infrastructure as Code (IaC)",
+    metric: "Declarative Cloud",
+    badge: "Terraform & ARM",
+    description:
+      "Automate Azure cloud infrastructure provisioning using Terraform and ARM Templates with remote state locking, replacing manual portal clicks with repeatable, version-controlled rollouts.",
+    tech: ["Terraform", "ARM Templates", "Remote State Lock", "Azure RM"],
+  },
+  {
+    title: "Container & Kubernetes Operations",
+    metric: "AKS Production",
+    badge: "Docker & AKS",
+    description:
+      "Manage containerized production workloads on Docker and Azure Kubernetes Service (AKS), diagnosing and resolving pod crashes, service communication, node health, and runtime failures.",
+    tech: ["Kubernetes", "Azure Kubernetes Service", "Docker", "Container Triage"],
+  },
+  {
+    title: "Fleet Configuration Management",
+    metric: "50+ Servers",
+    badge: "Ansible Fleet",
+    description:
+      "Automate recurring operational tasks, OS patching, and configuration management across 50+ managed Linux hosts (RHEL / Ubuntu) using idempotent Ansible playbooks, eliminating configuration drift.",
+    tech: ["Ansible Playbooks", "RHEL / Ubuntu", "Linux Admin", "Bash"],
+  },
+  {
+    title: "Observability, Alerting & Incident RCA",
+    metric: "99.9% SLA",
+    badge: "Prometheus & Grafana",
+    description:
+      "Build and maintain monitoring dashboards and alert rules in Prometheus and Grafana. Lead triage and root cause analysis (RCA) for production incidents including Java application failures through Jira.",
+    tech: ["Prometheus", "Grafana", "Incident Triage", "Root Cause Analysis", "Jira"],
+  },
+]
+
 export const uptimeDays = Array.from({ length: 45 }, (_, i) => ({
   day: i + 1,
   uptime: i === 18 ? 99.85 : i === 34 ? 99.88 : 99.99,

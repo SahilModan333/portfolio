@@ -31,7 +31,7 @@ export default function FloatingDock() {
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="flex items-center gap-1.5 rounded-full border border-white/[0.12] bg-[#080d18]/90 px-3 py-2 shadow-2xl backdrop-blur-xl ring-1 ring-white/10"
+        className="flex items-center gap-2 rounded-full border border-white/[0.14] bg-[#080d18]/95 px-3.5 py-2.5 shadow-2xl backdrop-blur-xl ring-1 ring-white/10"
       >
         {dockItems.map((item) => {
           const isHovered = hoveredId === item.id
@@ -43,10 +43,10 @@ export default function FloatingDock() {
                 {isHovered && (
                   <motion.div
                     initial={{ opacity: 0, y: 10, scale: 0.85 }}
-                    animate={{ opacity: 1, y: -38, scale: 1 }}
+                    animate={{ opacity: 1, y: -42, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.85 }}
                     transition={{ duration: 0.15 }}
-                    className="pointer-events-none absolute left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border border-white/15 bg-slate-900/95 px-2.5 py-1 font-mono text-[0.7rem] font-medium text-slate-200 shadow-xl backdrop-blur-md"
+                    className="pointer-events-none absolute left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg border border-white/20 bg-slate-900/95 px-3 py-1.5 font-mono text-xs font-semibold text-slate-100 shadow-2xl backdrop-blur-md"
                   >
                     {item.label}
                   </motion.div>
@@ -59,18 +59,18 @@ export default function FloatingDock() {
                 rel={item.external ? "noopener noreferrer" : undefined}
                 onMouseEnter={() => setHoveredId(item.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                whileHover={{ scale: 1.25, y: -2 }}
+                whileHover={{ scale: 1.2, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
+                className={`flex h-10 w-10 items-center justify-center rounded-full transition-all ${
                   item.id === "terminal"
-                    ? "bg-sky-500/20 text-sky-400 hover:bg-sky-500/30"
+                    ? "bg-sky-500/20 text-sky-400 hover:bg-sky-500/35 hover:shadow-[0_0_12px_rgba(56,189,248,0.4)]"
                     : item.id === "hire"
-                    ? "bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30"
-                    : "text-slate-400 hover:bg-white/[0.08] hover:text-slate-100"
+                    ? "bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/35 hover:shadow-[0_0_12px_rgba(52,211,153,0.4)]"
+                    : "text-slate-300 hover:bg-white/[0.1] hover:text-white"
                 }`}
                 aria-label={item.label}
               >
-                <Icon size={16} />
+                <Icon size={17} />
               </motion.a>
             </div>
           )

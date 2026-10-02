@@ -29,41 +29,40 @@ export default function Work() {
   return (
     <Section
       id="experience"
-      label="Work History & Profile"
-      title="Production Experience & Engineering Depth"
-      intro="Moving from cloud operations support toward end-to-end DevOps engineering — designing systems, building automation, and owning infrastructure with greater depth."
+      label="Work History &amp; Experience"
+      title="Professional Experience at Stibo Systems"
+      intro="4+ years supporting production enterprise Microsoft Azure environments, architecting multi-stage CI/CD pipelines, managing containerized workloads on AKS, and automating infrastructure at scale."
     >
       {/* Engineering Profile Summary Banner */}
       <SpotlightCard
         spotlightColor="rgba(56, 189, 248, 0.15)"
-        className="mb-12 overflow-hidden rounded-2xl border border-white/[0.1] bg-slate-900/80 p-6 sm:p-8"
+        className="mb-10 overflow-hidden rounded-2xl border border-white/[0.1] bg-slate-900/80 p-6 sm:p-8"
       >
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.08] pb-4">
           <div className="flex items-center gap-2">
             <span className="font-mono text-xs font-semibold uppercase tracking-wider text-sky-400">
-              Engineering Profile
+              Current Professional Role
             </span>
             <span className="text-slate-500">·</span>
-            <span className="text-xs text-slate-300">Bengaluru, Karnataka, India</span>
+            <span className="text-xs text-slate-300">Stibo Systems · Bengaluru, India</span>
           </div>
           <span className="rounded-full border border-sky-500/30 bg-sky-500/10 px-3 py-0.5 font-mono text-xs text-sky-300">
-            Cloud Operations → DevOps Engineering
+            May 2022 — Present · 4+ Years
           </span>
         </div>
 
         <p className="mt-4 text-base leading-relaxed text-slate-300 sm:text-lg">
-          Based in Bengaluru, I work as a Cloud Operations Engineer at <strong className="text-white">Stibo Systems</strong>, supporting production Microsoft Azure environments. Day-to-day work involves CI/CD pipelines, infrastructure operations, containerized workloads, and production incident response.
+          At <strong className="text-white font-bold">Stibo Systems</strong>, I serve as a Cloud Operations Engineer supporting an enterprise multi-tenant SaaS Master Data Management platform hosted on Microsoft Azure. Day-to-day responsibilities include end-to-end ownership of 20+ CI/CD pipelines across 4 environments, automated infrastructure provisioning with Terraform, container workload orchestration on AKS, and fleet configuration with Ansible.
         </p>
 
         <p className="mt-3 text-sm leading-relaxed text-slate-400">
-          Over 4+ years in cloud operations, I&apos;ve developed deep working experience across the Azure ecosystem, infrastructure-as-code tooling, container orchestration, and configuration automation.
-          The direction is clear: from cloud operations support toward end-to-end DevOps engineering — designing systems, building automation, and owning infrastructure with greater depth.
+          With 4+ years of real-world operational experience, I blend DevOps automation with SRE reliability practices—focusing on repeatable deployments, eliminating configuration drift, building actionable observability, and resolving production incidents to maintain 99.9% platform availability.
         </p>
 
         {/* Core Experience Areas Tags */}
         <div className="mt-6 border-t border-white/[0.06] pt-5">
           <span className="font-mono text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-3">
-            Core Experience Areas
+            Core Production Competencies
           </span>
           <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
             {coreExperienceAreas.map((area, idx) => (
@@ -78,19 +77,19 @@ export default function Work() {
         </div>
       </SpotlightCard>
 
-      {/* 21st.dev Animated Beam Visualizing the Azure DevOps YAML Pipeline Flow */}
-      <div className="mb-12">
+      {/* Production Delivery Flow */}
+      <div className="mb-10">
         <AnimatedBeam />
       </div>
 
-      {/* Engineering Philosophy Cards (AUTOMATE, DEPLOY, OBSERVE, TROUBLESHOOT) */}
-      <div className="mb-14">
+      {/* Engineering Philosophy Cards (How I Work) */}
+      <div className="mb-12">
         <div className="mb-4">
           <span className="font-mono text-xs font-medium uppercase tracking-wider text-sky-400">
-            Engineering Philosophy
+            Engineering Principles
           </span>
           <h3 className="text-xl font-bold text-white sm:text-2xl">
-            How I Work
+            How I Approach DevOps &amp; Cloud Reliability
           </h3>
         </div>
 
@@ -102,11 +101,11 @@ export default function Work() {
               className="p-5 transition-all duration-300 hover:border-sky-500/40"
             >
               <div className="flex items-center justify-between">
-                <span className="font-mono text-sm font-bold tracking-wider text-sky-400">
+                <span className="font-mono text-xs font-bold tracking-wider text-sky-400">
                   {phil.title}
                 </span>
-                <span className="rounded bg-white/5 px-2 py-0.5 font-mono text-[0.65rem] text-slate-400 border border-white/10">
-                  PHILOSOPHY
+                <span className="rounded bg-white/5 px-2 py-0.5 font-mono text-[0.62rem] text-slate-400 border border-white/10">
+                  CORE PRINCIPLE
                 </span>
               </div>
 
@@ -124,17 +123,17 @@ export default function Work() {
 
       {/* Role & Specific Duties */}
       {roles.map((role) => (
-        <article key={role.company} className="space-y-8">
+        <article key={role.company} className="space-y-6">
           <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-slate-900/70 p-6 backdrop-blur-xl sm:p-8">
             <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/[0.08] pb-6">
               <div>
                 <span className="font-mono text-xs font-medium uppercase tracking-wider text-sky-400">
-                  Current Enterprise Role
+                  Production Engineering Role
                 </span>
                 <h3 className="mt-1 text-2xl font-bold tracking-tight text-white sm:text-3xl">
                   {role.company}
                 </h3>
-                <p className="mt-1 text-base font-medium text-slate-300">
+                <p className="mt-1 text-base font-semibold text-slate-200">
                   {role.title}
                 </p>
               </div>
@@ -142,7 +141,7 @@ export default function Work() {
               <div className="text-right">
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-mono text-xs font-semibold text-emerald-400">
                   <span className="pulse-beacon bg-emerald-400" />
-                  Active · Cloud Operations &amp; DevOps
+                  Active · 4+ Years Experience
                 </span>
                 <p className="tnum mt-2 font-mono text-xs text-slate-400">
                   {role.from} — {role.to} · {role.location}
@@ -155,7 +154,7 @@ export default function Work() {
             </p>
           </div>
 
-          {/* Bento Grid of Core Operational Duties with 21st.dev Spotlight Cards */}
+          {/* Grid of Core Operational Duties */}
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {role.duties.map((duty) => {
               const IconComponent = dutyIcons[duty.heading] || GitBranchIcon

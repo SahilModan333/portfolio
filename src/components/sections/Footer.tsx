@@ -67,7 +67,7 @@ export default function Footer() {
 
       <div className="mx-auto mt-8 max-w-6xl border-t border-white/[0.04] px-6 pt-6 text-center lg:px-8">
         <p className="font-mono text-xs text-slate-500">
-          Designed with GSAP, ThreeUI, 21st.dev &amp; TasteSkill · © {new Date().getFullYear()} Sahil Modan · All rights reserved.
+          © {new Date().getFullYear()} Sahil Modan · Azure DevOps &amp; Cloud Operations Engineer · All rights reserved.
         </p>
       </div>
     </footer>

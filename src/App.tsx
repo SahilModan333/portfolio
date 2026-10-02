@@ -1,12 +1,13 @@
 import { useEffect } from "react"
 import Nav from "./components/Nav"
 import Hero from "./components/sections/Hero"
+import TechStackSection from "./components/sections/TechStackSection"
+import AzureCertifications from "./components/sections/AzureCertifications"
 import Work from "./components/sections/Work"
 import Build from "./components/sections/Build"
 import DevOpsPipeline from "./components/sections/DevOpsPipeline"
-import Terminal from "./components/sections/Terminal"
 import Incidents from "./components/sections/Incidents"
-import Stack from "./components/sections/Stack"
+import Terminal from "./components/sections/Terminal"
 import Credentials from "./components/sections/Credentials"
 import HireMe from "./components/sections/HireMe"
 import Footer from "./components/sections/Footer"
@@ -39,35 +40,38 @@ export default function App() {
 
       {/* Main Content Sections */}
       <main id="main">
-        {/* 1. Hero & Control Plane Deploy Simulator */}
+        {/* 1. Hero, Metrics, Control Plane Deploy Simulator & What I Do in Production */}
         <Hero />
 
-        {/* 2. Production Experience & Engineering Profile */}
+        {/* 2. Interactive Tech Stack & Tools Lifecycle (At the top!) */}
+        <TechStackSection />
+
+        {/* 3. Verified Microsoft Azure Certifications (Official Badges) */}
+        <AzureCertifications />
+
+        {/* 4. Production Experience at Stibo Systems, CI/CD Flow & Engineering Principles */}
         <Work />
 
-        {/* 3. Engineered Builds & Portfolio Projects */}
+        {/* 5. Engineered Builds & Architectural Projects */}
         <Build />
 
-        {/* 4. 9-Stage DevOps Pipeline (Code to Infrastructure) */}
+        {/* 6. DevOps Delivery Pipeline (Code to Infrastructure) */}
         <DevOpsPipeline />
 
-        {/* 5. Interactive SRE Terminal Shell */}
-        <Terminal />
-
-        {/* 6. Incident Triage & Runbook Simulator */}
+        {/* 7. Incident Triage & Post-Mortem Runbooks */}
         <Incidents />
 
-        {/* 7. Technology Stack & Tools */}
-        <Stack />
+        {/* 8. Interactive SRE Terminal Shell */}
+        <Terminal />
 
-        {/* 8. Microsoft Certifications & Academic Education */}
+        {/* 9. Academic Education in Cloud Systems & Open Source */}
         <Credentials />
 
-        {/* 9. Hire Me / Work With Me */}
+        {/* 10. Hire Me / Work With Me */}
         <HireMe />
       </main>
 
-      {/* TasteSkill-style Fluid Floating Dock Navigation */}
+      {/* Fluid Floating Dock Navigation */}
       <FloatingDock />
 
       {/* Footer */}

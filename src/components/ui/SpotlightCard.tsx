@@ -59,7 +59,7 @@ export default function SpotlightCard({
         className
       )}
     >
-      {/* 21st.dev Radial Spotlight Layer */}
+      {/* Dynamic Radial Spotlight Layer */}
       <div
         className="pointer-events-none absolute -inset-px transition-opacity duration-300"
         style={{

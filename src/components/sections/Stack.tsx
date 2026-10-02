@@ -15,7 +15,7 @@ const categoryIcons: Record<string, typeof GitBranchIcon> = {
 export default function Stack() {
   return (
     <Section
-      id="skills"
+      id="capabilities"
       label="Technical Capabilities"
       title="Tools &amp; technologies, organized by purpose"
       intro="No arbitrary percentage bars. Organized by the production operational job they perform, which is how senior engineering infrastructure is actually designed."

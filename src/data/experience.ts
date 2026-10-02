@@ -7,31 +7,31 @@ export interface Philosophy {
 
 export const philosophies: Philosophy[] = [
   {
-    title: "AUTOMATE",
-    action: "Infrastructure & Fleet Orchestration",
+    title: "AUTOMATE OVER TOIL",
+    action: "Infrastructure as Code & Configuration Fleet",
     description:
-      "Reduce repetitive manual toil through idempotent Ansible playbooks, Terraform configurations, and automated operational scripts.",
+      "Eliminate manual portal clicks and configuration drift. Provision Azure resources declaratively with Terraform and ARM templates, and manage 50+ Linux servers with idempotent Ansible playbooks.",
     icon: "server",
   },
   {
-    title: "DEPLOY",
-    action: "Zero-Downtime Delivery",
+    title: "MULTI-STAGE RELEASES",
+    action: "Repeatable Azure DevOps YAML Pipelines",
     description:
-      "Create repeatable, reliable deployment pipelines with Azure DevOps YAML and Release Pipelines across Development, QA, UAT, and Production.",
+      "Maintain predictable, consistent delivery. Build and maintain 20+ CI/CD pipelines enforcing automated test gates across Development, QA, UAT, and Production environments.",
     icon: "git-branch",
   },
   {
-    title: "OBSERVE",
-    action: "Proactive SLI / SLO Monitoring",
+    title: "OBSERVABILITY FIRST",
+    action: "Prometheus & Grafana SLA Telemetry",
     description:
-      "Monitor infrastructure and application health with Prometheus metrics, Grafana dashboards, and actionable alert rules before customers notice.",
+      "Catch system anomalies before SLA degradation. Build dashboards and alert rules that track cluster health, container runtimes, and application latency against a 99.9% uptime baseline.",
     icon: "activity",
   },
   {
-    title: "TROUBLESHOOT",
-    action: "Root Cause Remediation",
+    title: "SYSTEMATIC TRIAGE & RCA",
+    action: "Incident Management & Root Cause Remediation",
     description:
-      "Investigate production issues methodically, lead Root Cause Analysis (RCA), and eliminate recurring failures permanently through Jira tracking.",
+      "Diagnose pod, node, and Java runtime failures methodically. Restore service availability rapidly, lead Root Cause Analysis (RCA), and drive permanent fixes through Jira.",
     icon: "shield",
   },
 ]
@@ -58,12 +58,12 @@ export const roles: Role[] = [
   {
     company: "Stibo Systems",
     companyShort: "SS",
-    title: "Associate Systems Engineer — Cloud Operations",
+    title: "Cloud Operations – Associate Systems Engineer",
     location: "Bengaluru, Karnataka, India",
     from: "May 2022",
-    to: "Present",
+    to: "Present (4+ Years)",
     summary:
-      "Stibo Systems operates an enterprise multi-tenant SaaS Master Data Management platform on Microsoft Azure. I work in cloud operations & DevOps engineering: designing and maintaining CI/CD pipelines, automating infrastructure with Terraform, orchestrating Kubernetes workloads, managing server fleet configurations with Ansible, and ensuring 99.9% platform availability.",
+      "Stibo Systems delivers an enterprise multi-tenant SaaS Master Data Management platform hosted on Microsoft Azure. In my role supporting this production cloud environment, I design and maintain 20+ Azure DevOps CI/CD pipelines across 4 environments, automate cloud infrastructure with Terraform and ARM templates, manage containerized workloads on AKS and Docker, maintain 50+ Linux hosts with Ansible, and uphold 99.9% platform availability through proactive Prometheus and Grafana monitoring.",
     duties: [
       {
         heading: "CI/CD Pipeline Engineering",
@@ -72,21 +72,21 @@ export const roles: Role[] = [
         stack: ["Azure DevOps", "YAML Pipelines", "Release Pipelines", "Azure Repos", "Git"],
       },
       {
-        heading: "Infrastructure as Code",
+        heading: "Infrastructure as Code (IaC)",
         subtitle: "Repeatable Cloud Provisioning",
-        body: "Automated Azure infrastructure provisioning using Terraform and ARM Templates, replacing manual portal configuration with repeatable, version-controlled deployments with remote state locking.",
-        stack: ["Terraform", "ARM Templates", "Azure Resource Manager", "IaC"],
+        body: "Automated Azure infrastructure provisioning using Terraform and ARM Templates, replacing manual portal configuration with repeatable, version-controlled deployments with remote state locking in Azure Blob storage.",
+        stack: ["Terraform", "ARM Templates", "Azure Resource Manager", "IaC", "Remote State"],
       },
       {
         heading: "Container Operations & Kubernetes",
         subtitle: "AKS Cluster & Pod Management",
         body: "Managed containerized production workloads on Docker and Azure Kubernetes Service (AKS), diagnosing and resolving pod, service, node, and runtime failures to restore service availability.",
-        stack: ["Docker", "Kubernetes", "Azure Kubernetes Service (AKS)", "Container Troubleshooting"],
+        stack: ["Docker", "Kubernetes", "Azure Kubernetes Service (AKS)", "Container Triage", "Linux"],
       },
       {
         heading: "Configuration Automation",
-        subtitle: "Zero-Drift Server Fleet Management",
-        body: "Automated recurring operational and configuration tasks with Ansible playbooks across 50+ managed servers, reducing manual effort and eliminating configuration drift.",
+        subtitle: "Server Fleet Fleet Management",
+        body: "Automated recurring operational and configuration tasks with Ansible playbooks across 50+ managed Linux servers (RHEL / Ubuntu), reducing manual effort and eliminating configuration drift.",
         stack: ["Ansible", "Playbooks", "Configuration Management", "Bash", "RHEL / Ubuntu"],
       },
       {
@@ -99,13 +99,13 @@ export const roles: Role[] = [
         heading: "Production Support & RCA",
         subtitle: "Root Cause Analysis & Incident Resolution",
         body: "Led triage and root cause analysis for production incidents and outages including Java application failures, driving remediation through Jira and sustaining 99.9% platform uptime.",
-        stack: ["Production Support", "Incident Management", "RCA", "Jira"],
+        stack: ["Incident Management", "Root Cause Analysis (RCA)", "Java Runtime Triage", "Jira"],
       },
       {
         heading: "Operational & SLA Reporting",
         subtitle: "Stakeholder Evidence & Reliability Metrics",
         body: "Produced uptime, DBA, and platform-health reports consumed by enterprise customers and internal stakeholders to evidence service reliability against contractual SLAs.",
-        stack: ["Uptime Monitoring", "DBA Reports", "SLA Reporting", "Stakeholder Reporting"],
+        stack: ["Uptime Monitoring", "DBA Reports", "SLA Reporting", "Stakeholder Communication"],
       },
     ],
   },

@@ -41,9 +41,9 @@ const pipelineNodes: BeamNode[] = [
   {
     id: "aks",
     label: "AKS Production",
-    sublabel: "Zero-Downtime Rollout",
+    sublabel: "Container Health & Uptime",
     icon: ServerIcon,
-    status: "99.9% Uptime",
+    status: "99.9% SLA",
   },
 ]
 
@@ -53,10 +53,10 @@ export default function AnimatedBeam() {
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] pb-4">
         <div>
           <span className="font-mono text-[0.7rem] uppercase tracking-wider text-sky-400">
-            21st.dev Architecture Primitive
+            Multi-Environment CI/CD Workflow
           </span>
           <h4 className="mt-0.5 font-mono text-sm font-semibold text-slate-100">
-            Automated Azure DevOps Zero-Downtime YAML Delivery Pipeline
+            Automated Azure DevOps YAML Pipeline across 4 Environments (Dev, QA, UAT, Prod)
           </h4>
         </div>
 
