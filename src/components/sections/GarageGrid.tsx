@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { useCustomization } from "../../context/CustomizationContext"
-import type { FeaturedProject } from "../../data/portfolio.config"
+import { portfolioConfig, type FeaturedProject } from "../../data/portfolio.config"
 import Section from "../ui/Section"
 import { GithubIcon, ArrowUpRightIcon, CodeIcon, CheckIcon, CopyIcon, CloudIcon, ServerIcon, ActivityIcon, CpuIcon } from "../ui/Icons"
 import { sound } from "../../lib/sound"
@@ -201,8 +200,6 @@ function GarageCell({ project }: { project: FeaturedProject }) {
 }
 
 export default function GarageGrid() {
-  const { config } = useCustomization()
-
   return (
     <Section
       id="projects"
@@ -211,7 +208,7 @@ export default function GarageGrid() {
       intro="Four core architectural builds: multi-stage YAML pipelines, containerized AKS platforms, unified Prometheus observability, and automated Ansible fleet management."
     >
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {config.projects.map((project) => (
+        {portfolioConfig.projects.map((project) => (
           <GarageCell key={project.id} project={project} />
         ))}
       </div>

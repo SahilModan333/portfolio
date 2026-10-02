@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { CustomizationProvider, useCustomization } from "./context/CustomizationContext"
 import Nav from "./components/Nav"
 import GarageHero from "./components/sections/GarageHero"
 import CareerTimeline from "./components/sections/CareerTimeline"
@@ -15,12 +14,9 @@ import Footer from "./components/sections/Footer"
 import FloatingDock from "./components/ui/FloatingDock"
 import GlowCursor from "./components/ui/GlowCursor"
 import CommandPalette from "./components/ui/CommandPalette"
-import CustomizerModal from "./components/ui/CustomizerModal"
-import CustomizerTrigger from "./components/ui/CustomizerTrigger"
 
-function PortfolioApp() {
+export default function App() {
   const [isCmdOpen, setIsCmdOpen] = useState(false)
-  const { features } = useCustomization()
 
   const scrollToTerminal = () => {
     const el = document.getElementById("terminal")
@@ -29,13 +25,8 @@ function PortfolioApp() {
 
   return (
     <div className="relative min-h-screen bg-[#070b14] text-slate-100 selection:bg-sky-500/30 selection:text-white">
-      {/* Optional phosphor CRT scanlines overlay */}
-      {features.enableScanlines && (
-        <div className="scanline-grid-overlay fixed inset-0 z-[99] pointer-events-none opacity-40" />
-      )}
-
-      {/* GSAP Ambient Glow Cursor (toggleable via features) */}
-      {features.enableGlow && <GlowCursor />}
+      {/* GSAP Ambient Glow Cursor */}
+      <GlowCursor />
 
       {/* Bryan Garage Style Command Palette (⌘K / Ctrl+K) */}
       <CommandPalette
@@ -43,12 +34,6 @@ function PortfolioApp() {
         onClose={() => setIsCmdOpen(false)}
         onOpenTerminal={scrollToTerminal}
       />
-
-      {/* Live Customizer Modal */}
-      <CustomizerModal />
-
-      {/* Floating Customizer Button */}
-      <CustomizerTrigger />
 
       {/* Skip to Content for Accessibility */}
       <a
@@ -58,7 +43,7 @@ function PortfolioApp() {
         Skip to main content
       </a>
 
-      {/* Minimal Top Header with ⌘K & Customizer Triggers */}
+      {/* Minimal Top Header with ⌘K & Orange Terminal Triggers */}
       <Nav
         onOpenCommandPalette={() => setIsCmdOpen(true)}
         onOpenTerminal={scrollToTerminal}
@@ -66,10 +51,13 @@ function PortfolioApp() {
 
       {/* Main Content Sections (100% Scrollable, Continuous Flow — Zero Pagination) */}
       <main id="main">
-        {/* 1. Bryan Garage Style Narrative Hero with Blur Reveal & Inline Peek Cards */}
-        <GarageHero onOpenTerminal={scrollToTerminal} />
+        {/* 1. Bryan Garage Style Narrative Hero with Vintage Macintosh CRT Monitor Centerpiece */}
+        <GarageHero
+          onOpenTerminal={scrollToTerminal}
+          onOpenCommandPalette={() => setIsCmdOpen(true)}
+        />
 
-        {/* 2. Visual Timeline Track (2016–2026 Ruler Scale) */}
+        {/* 2. Visual Timeline Track (2016–2027 Ruler Scale) */}
         <CareerTimeline />
 
         {/* 3. Live Control Plane Deploy Simulator */}
@@ -116,13 +104,5 @@ function PortfolioApp() {
       {/* Footer */}
       <Footer />
     </div>
-  )
-}
-
-export default function App() {
-  return (
-    <CustomizationProvider>
-      <PortfolioApp />
-    </CustomizationProvider>
   )
 }

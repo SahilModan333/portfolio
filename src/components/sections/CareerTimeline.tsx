@@ -1,14 +1,13 @@
 import { useState, useRef } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { useCustomization } from "../../context/CustomizationContext"
+import { portfolioConfig } from "../../data/portfolio.config"
 import { timelineYears, type TimelineEntry } from "../../data/timeline"
 import { ArrowUpRightIcon, CheckIcon, ShieldIcon, ServerIcon } from "../ui/Icons"
 import SpotlightCard from "../ui/SpotlightCard"
 import { sound } from "../../lib/sound"
 
 export default function CareerTimeline() {
-  const { config } = useCustomization()
-  const entries = config.timeline as TimelineEntry[]
+  const entries = portfolioConfig.timeline as TimelineEntry[]
   const [activeEntry, setActiveEntry] = useState<TimelineEntry | null>(entries[0] || null)
   const scrollRef = useRef<HTMLDivElement>(null)
 

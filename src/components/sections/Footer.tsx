@@ -1,10 +1,9 @@
-import { useCustomization } from "../../context/CustomizationContext"
-import { GithubIcon, LinkedinIcon, DocumentIcon, MailIcon, SettingsIcon } from "../ui/Icons"
+import { portfolioConfig } from "../../data/portfolio.config"
+import { GithubIcon, LinkedinIcon, DocumentIcon, MailIcon } from "../ui/Icons"
 import { sound } from "../../lib/sound"
 
 export default function Footer() {
-  const { config, setIsCustomizerOpen } = useCustomization()
-  const p = config.personal
+  const p = portfolioConfig.personal
 
   return (
     <footer className="border-t border-white/[0.08] bg-[#05080e] py-14">
@@ -31,18 +30,6 @@ export default function Footer() {
           </div>
 
           <div className="flex items-center gap-4 text-slate-300">
-            <button
-              onClick={() => {
-                sound.playClick()
-                setIsCustomizerOpen(true)
-              }}
-              className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-xs text-sky-300 hover:border-sky-400/40 hover:bg-sky-500/10 transition-colors"
-              title="Customize Portfolio"
-            >
-              <SettingsIcon size={13} />
-              <span>Customize</span>
-            </button>
-
             <a
               href={`mailto:${p.email}`}
               onClick={() => sound.playClick()}

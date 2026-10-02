@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { useCustomization } from "../context/CustomizationContext"
-import { DocumentIcon, TerminalIcon, SettingsIcon } from "./ui/Icons"
+import { portfolioConfig } from "../data/portfolio.config"
+import { DocumentIcon } from "./ui/Icons"
 import { sound } from "../lib/sound"
 
 interface NavProps {
@@ -9,8 +9,8 @@ interface NavProps {
 }
 
 export default function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
-  const { config, setIsCustomizerOpen } = useCustomization()
   const [scrolled, setScrolled] = useState(false)
+  const p = portfolioConfig.personal
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -23,8 +23,8 @@ export default function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) 
     <header
       className={`sticky top-0 z-50 transition-all duration-200 ${
         scrolled
-          ? "border-b border-white/[0.08] bg-[#070b14]/90 backdrop-blur-md shadow-lg shadow-black/40"
-          : "border-b border-transparent bg-[#070b14]/65 backdrop-blur-sm"
+          ? "border-b border-white/[0.08] bg-[#0c0e12]/95 backdrop-blur-md shadow-lg shadow-black/40"
+          : "border-b border-transparent bg-[#111317]/80 backdrop-blur-sm"
       }`}
     >
       <nav
@@ -41,30 +41,17 @@ export default function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) 
             <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-sky-500/10 text-sky-400 ring-1 ring-sky-500/20">
               &gt;
             </span>
-            <span className="tracking-wider uppercase">{config.personal.name}</span>
+            <span className="tracking-wider uppercase">{p.name}</span>
           </a>
 
           <div className="hidden items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[0.7rem] font-medium text-emerald-400 sm:flex">
             <span className="pulse-beacon bg-emerald-400" />
-            <span className="font-mono">{config.personal.statusBeacon || "99.9% SLA · Operational"}</span>
+            <span className="font-mono">{p.statusBeacon}</span>
           </div>
         </div>
 
-        {/* Bryan Garage Style Actions */}
-        <div className="flex items-center gap-2.5">
-          {/* Customize Portfolio Trigger */}
-          <button
-            type="button"
-            onClick={() => {
-              sound.playClick()
-              setIsCustomizerOpen(true)
-            }}
-            className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] font-mono text-xs text-slate-300 transition-colors hover:border-sky-400/40 hover:bg-sky-500/10 hover:text-sky-400"
-            title="Customize Portfolio (Theme, Info & FX)"
-          >
-            <SettingsIcon size={14} />
-          </button>
-
+        {/* Bryan Garage Header Actions */}
+        <div className="flex items-center gap-3">
           {/* Jump to (⌘K) Command Trigger */}
           <button
             id="cmd-trigger"
@@ -76,29 +63,32 @@ export default function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) 
             className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-1.5 font-mono text-xs text-slate-300 transition-colors hover:border-sky-400/40 hover:bg-sky-500/10 hover:text-white"
             title="Jump to... (⌘K / Ctrl+K)"
           >
-            <span>Jump to…</span>
+            <span>Jump to</span>
             <span className="flex items-center gap-0.5 rounded bg-white/10 px-1 py-0.2 text-[0.62rem] text-slate-300">
               <kbd>⌘</kbd>
               <kbd>K</kbd>
             </span>
           </button>
 
-          {/* Quick Terminal Trigger */}
+          {/* Signature Bryan Garage Orange Circle Terminal Button (>_) */}
           <button
             type="button"
             onClick={() => {
               sound.playClick()
               onOpenTerminal()
             }}
-            className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] font-mono text-xs text-slate-300 transition-colors hover:border-sky-400/40 hover:bg-sky-500/10 hover:text-sky-400"
-            title="Launch Terminal Shell"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-orange-500/60 bg-orange-500/10 text-orange-400 font-mono text-xs font-bold shadow-md shadow-orange-500/20 hover:bg-orange-500 hover:text-black transition-all"
+            title="Open CLI Terminal"
           >
-            <TerminalIcon size={14} />
+            <span className="flex items-center gap-0.5">
+              <span>&gt;</span>
+              <span className="animate-pulse">_</span>
+            </span>
           </button>
 
-          {/* Download Resume Button */}
+          {/* Download Resume Link */}
           <a
-            href={config.personal.resumePath}
+            href={p.resumePath}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => sound.playClick()}
@@ -113,4 +103,3 @@ export default function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) 
     </header>
   )
 }
-

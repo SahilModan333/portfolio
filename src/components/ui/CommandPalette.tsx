@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { useCustomization } from "../../context/CustomizationContext"
+import { portfolioConfig } from "../../data/portfolio.config"
 import {
   TerminalIcon,
   DocumentIcon,
@@ -14,7 +14,6 @@ import {
   GitBranchIcon,
   ShieldIcon,
   ActivityIcon,
-  SettingsIcon,
 } from "./Icons"
 import { sound } from "../../lib/sound"
 
@@ -34,7 +33,7 @@ interface CommandPaletteProps {
 }
 
 export default function CommandPalette({ isOpen, onClose, onOpenTerminal }: CommandPaletteProps) {
-  const { config, setIsCustomizerOpen } = useCustomization()
+  const p = portfolioConfig.personal
   const [query, setQuery] = useState("")
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [copied, setCopied] = useState(false)
@@ -50,7 +49,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenTerminal }: Comm
   }
 
   const copyEmail = () => {
-    navigator.clipboard.writeText(config.personal.email)
+    navigator.clipboard.writeText(p.email)
     sound.playSuccess()
     setCopied(true)
     setTimeout(() => {
@@ -139,20 +138,8 @@ export default function CommandPalette({ isOpen, onClose, onOpenTerminal }: Comm
     },
     // Actions
     {
-      id: "act-customizer",
-      title: "Customize Portfolio & Theme",
-      category: "Actions",
-      icon: SettingsIcon,
-      action: () => {
-        sound.playClick()
-        onClose()
-        setIsCustomizerOpen(true)
-      },
-      hint: "⚙ Live Editor",
-    },
-    {
       id: "act-copy-email",
-      title: copied ? "Email Copied to Clipboard!" : `Copy Email (${config.personal.email})`,
+      title: copied ? "Email Copied to Clipboard!" : `Copy Email (${portfolioConfig.personal.email})`,
       category: "Actions",
       icon: copied ? CheckIcon : CopyIcon,
       action: copyEmail,
@@ -165,7 +152,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenTerminal }: Comm
       icon: DocumentIcon,
       action: () => {
         sound.playClick()
-        window.open(config.personal.resumePath, "_blank")
+        window.open(p.resumePath, "_blank")
         onClose()
       },
       hint: "PDF",
@@ -173,12 +160,12 @@ export default function CommandPalette({ isOpen, onClose, onOpenTerminal }: Comm
     // Social
     {
       id: "soc-github",
-      title: `GitHub Profile (@${config.personal.github.split("/").pop() || "SahilModan333"})`,
+      title: `GitHub Profile (@${p.github.split("/").pop() || "SahilModan333"})`,
       category: "Social",
       icon: GithubIcon,
       action: () => {
         sound.playClick()
-        window.open(config.personal.github, "_blank")
+        window.open(p.github, "_blank")
         onClose()
       },
       hint: "github.com",
@@ -190,7 +177,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenTerminal }: Comm
       icon: LinkedinIcon,
       action: () => {
         sound.playClick()
-        window.open(config.personal.linkedin, "_blank")
+        window.open(p.linkedin, "_blank")
         onClose()
       },
       hint: "linkedin.com",

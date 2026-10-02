@@ -1,13 +1,12 @@
 import { useState } from "react"
-import { useCustomization } from "../../context/CustomizationContext"
+import { portfolioConfig } from "../../data/portfolio.config"
 import { MailIcon, DocumentIcon, GithubIcon, LinkedinIcon, CopyIcon, CheckIcon, ArrowUpRightIcon, ShieldIcon } from "../ui/Icons"
 import MagneticButton from "../ui/MagneticButton"
 import SpotlightCard from "../ui/SpotlightCard"
 import { sound } from "../../lib/sound"
 
 export default function HireMe() {
-  const { config } = useCustomization()
-  const p = config.personal
+  const p = portfolioConfig.personal
   const [copied, setCopied] = useState(false)
 
   const copyEmail = () => {
