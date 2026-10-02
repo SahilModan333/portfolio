@@ -1,267 +1,90 @@
-Portfolio
-
-A React + TypeScript portfolio website built with Vite and Tailwind CSS.
-
-Tech Stack
-React 19
-TypeScript
-Vite 8
-Tailwind CSS 4
-Framer Motion
-Lucide React
-pnpm
-Requirements
-
-You need:
-
-Node.js 22+
-npm
-pnpm
-Git
-
-Check your versions:
-
-node --version
-npm --version
-pnpm --version
-git --version
-
-Quick Start
-1. Clone the repository
-git clone https://github.com/SahilModan333/portfolio.git
-
-2. Enter the project
-cd portfolio
-
-3. Install pnpm
-
-If pnpm is not installed:
-
-sudo npm install --global pnpm
-
-
-Check:
-
-pnpm --version
-
-4. Install dependencies
-pnpm install
-
-5. Build the project
-
-Always test the build before running/deploying:
-
-pnpm run build
-
-
-A successful build creates:
-
-dist/
-
-6. Start the development server
-pnpm run dev
-
-
-Vite will show something similar to:
-
-VITE ready
-
-Local:   http://localhost:5173/
-Network: http://YOUR_SERVER_IP:5173/
-
-
-Open the URL shown by Vite in your browser.
-
-Running on a Remote Linux Server / KodeKloud
-
-The Vite configuration is already configured to listen on all interfaces:
-
-0.0.0.0
-
-
-It also allows remote hostnames used by sandbox environments.
-
-Run:
-
-pnpm run dev
-
-
-Then open the URL provided by the environment.
-
-If port 5173 is already being used, Vite will automatically use another port such as 5174.
-
-For example:
-
-http://localhost:5174/
-
-
-or the corresponding Network URL.
-
-Production Build
-
-Create the production version:
-
-pnpm run build
-
-
-The production files are generated inside:
-
-dist/
-
-
-Preview the production build locally:
-
-pnpm run preview
-
-Development Workflow
-
-After making changes to the source code:
-
-pnpm run build
-
-
-If the build succeeds, start the development server:
-
-pnpm run dev
-
-
-The main application code is located in:
-
-src/
-
-Project Structure
-portfolio/
-├── src/
-│   ├── components/
-│   └── ...
-├── public/
-├── dist/              # Generated after build
-├── index.html
-├── package.json
-├── pnpm-lock.yaml
-├── tsconfig.json
-├── vite.config.ts
-└── README.md
-
-Troubleshooting
-Node.js is not installed
-
-On CentOS Stream 9:
-
-sudo dnf module enable nodejs:22 -y
-sudo dnf install nodejs npm -y
-
-
-Check:
-
-node --version
-npm --version
-
-pnpm is not installed
-sudo npm install --global pnpm
-
-
-Check:
-
-pnpm --version
-
-Port 5173 is already in use
-
-Check:
-
-ss -ltnp | grep 5173
-
-
-You can also simply run:
-
-pnpm run dev
-
-
-Vite will automatically select another available port.
-
-Clean reinstall
-
-If dependencies become corrupted:
-
-rm -rf node_modules
-pnpm install
-pnpm run build
-
-Deployment
-
-This is a Vite frontend application.
-
-The deployment flow is:
-
-GitHub
-   ↓
-Clone repository
-   ↓
-pnpm install
-   ↓
-pnpm run build
-   ↓
-dist/
-   ↓
-Web server / Static hosting
-
-
-The contents of dist/ are the production-ready website.
-
-You can deploy the dist/ directory to a static hosting provider or serve it using a web server such as Nginx.
-
-Important
-
-Do not commit node_modules/ or other generated files.
-
-Before committing changes:
-
-git status
-
-
-Then:
-
-git add .
-git commit -m "Update portfolio"
-git push origin main
-
-Verified Environment
-
-This project has been successfully tested on:
-
-OS:       CentOS Stream 9
-CPU:      x86_64
-Node.js:  22.23.1
-npm:      10.9.8
-pnpm:     11.22.0
-React:    19.2.4
-Vite:     8.0.3
-
-
-The production build completed successfully:
-
-✓ 2218 modules transformed
-✓ built
-
-Quick Command Reference
-# Clone
-git clone https://github.com/SahilModan333/portfolio.git
-
-# Enter project
-cd portfolio
-
-# Install dependencies
-pnpm install
-
-# Build
-pnpm run build
-
-# Run development server
-pnpm run dev
-
-# Preview production build
-pnpm run preview
-
-GithubAction test
-
-
+# sahildevops.me
+
+Personal site for Sahil Modan — Cloud Operations Engineer, Azure.
+
+Static React app, built with Vite, served from S3 behind Cloudflare.
+
+## Run it
+
+```bash
+bun install
+bun run dev        # http://localhost:5173
+bun run typecheck  # tsc --noEmit
+bun run build      # → dist/
+```
+
+`npm` and `pnpm` work too, but the checked-in `pnpm-lock.yaml` is **stale** — it
+still lists `framer-motion` and `lucide-react`, both of which were removed. If
+any CI step runs `pnpm install --frozen-lockfile`, it will fail. Either delete
+the file and commit `bun.lock`, or regenerate it once with `pnpm install`.
+
+## Deploy
+
+```bash
+bun run build
+aws s3 sync dist/ s3://<your-bucket> --delete
+```
+
+Then purge the Cloudflare cache, or the old `index.html` keeps being served with
+the old asset hashes. Everything under `dist/assets/` is content-hashed and safe
+to cache forever; `index.html` should be served `no-cache`.
+
+## Things you have to supply
+
+These are referenced by the site but not in the repo. Each one is a visible
+defect until it lands.
+
+| File | Why |
+| --- | --- |
+| `public/resume.pdf` | The résumé links (nav, hero, contact, footer) all point at `/resume.pdf`. Nothing is there, which is the original "download link failed" bug. |
+| `public/og.png` | 1200×630. Referenced by the Open Graph and Twitter tags. Without it, links to the site preview with no image. |
+| `public/apple-touch-icon.png` | 180×180. Optional, but iOS home-screen bookmarks fall back to a screenshot without it. |
+
+### About the résumé PDF
+
+**Do not copy `Sahil Modan - Azure DevOps Resume.pdf` into `public/` as-is.**
+
+That file has instruction text embedded in it aimed at automated résumé
+screeners — text telling an AI reviewer to rate the candidate as an exceptional
+fit. Publishing it to a public URL puts that text on the open web, where it is
+discoverable by anyone who runs `pdftotext` on it, including the companies you
+are applying to. Export a clean copy and use that.
+
+## Filling in the gaps
+
+- `src/data/projects.ts` is an empty array. The Build section returns `null`
+  when it is empty, so nothing renders until there is real work in it. This is
+  intentional — an absent section reads better than "coming soon" cards.
+- `src/data/certifications.ts` has an optional `credentialUrl` on each cert,
+  currently unset. Paste the Microsoft Learn or Credly verification links and
+  the badges become clickable proof instead of claims.
+- `src/data/profile.ts` has a `linkedin` URL. The résumé shows the vanity slug
+  `/in/sahil-modan`; confirm which one actually resolves.
+
+## Layout
+
+```
+index.html            static <head>: title, description, OG, Twitter, JSON-LD
+src/data/             all copy and figures live here, not in components
+  profile.ts          identity, links, the service-record figures
+  experience.ts       what the role actually covers
+  incidents.ts        the three recurring incident classes
+  skills.ts           tools grouped by job, not by proficiency
+  certifications.ts   certs + education
+  projects.ts         empty by design
+src/components/
+  Nav.tsx             sticky header; link rail instead of a hamburger on mobile
+  sections/           one file per section, each reading from src/data
+  ui/                 Section wrapper and hand-rolled inline SVG icons
+src/index.css         Tailwind 4 @theme tokens + the few component classes
+```
+
+No animation library and no icon library. The only non-user-triggered motion on
+the page is the uptime meter drawing itself once, and it is disabled under
+`prefers-reduced-motion`.
+
+## Editing
+
+Copy changes go in `src/data/*.ts`, not in the components. `profile.ts` derives
+years of experience from `startedAt`, so the "four years" in the hero updates
+itself and never goes stale.

@@ -1,157 +1,109 @@
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, FileText } from "lucide-react"
-const navLinks = [
+import { useEffect, useState } from "react"
+import { profile } from "../data/profile"
+import { DocumentIcon, TerminalIcon } from "./ui/Icons"
+
+const links = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
   { label: "Engineering", href: "#projects" },
+  { label: "Pipeline", href: "#pipeline" },
   { label: "Skills", href: "#skills" },
   { label: "Certifications", href: "#certifications" },
   { label: "Contact", href: "#contact" },
 ]
 
-export default function Nav({ onResumeOpen }: { onResumeOpen: () => void }) {
+export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [active, setActive] = useState("")
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 48)
-      const sections = navLinks.map((l) => l.href.slice(1))
-      for (const id of [...sections].reverse()) {
-        const el = document.getElementById(id)
-        if (el && window.scrollY >= el.offsetTop - 130) {
-          setActive(id)
-          break
-        }
-      }
-    }
+    const onScroll = () => setScrolled(window.scrollY > 20)
+    onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  const handleLink = (href: string) => {
-    setMobileOpen(false)
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" })
-  }
-
   return (
-    <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      animate={{ paddingTop: scrolled ? "12px" : "20px", paddingBottom: scrolled ? "12px" : "20px" }}
-      style={{
-        background: scrolled ? "rgba(8,13,26,0.95)" : "transparent",
-        backdropFilter: scrolled ? "blur(20px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.07)" : "none",
-      }}
+    <header
+      className={`sticky top-0 z-50 transition-all duration-200 ${
+        scrolled
+          ? "border-b border-white/[0.08] bg-[#080b11]/90 backdrop-blur-md shadow-lg shadow-black/40"
+          : "border-b border-transparent bg-[#080b11]/70 backdrop-blur-sm"
+      }`}
     >
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
-        <a
-          href="#"
-          onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }) }}
-          className="font-semibold text-white text-sm tracking-tight hover:opacity-80 transition-opacity"
-          style={{ fontFamily: "JetBrains Mono, monospace" }}
-        >
-          <span className="text-sky-400">&gt;</span> SAHIL MODAN
-        </a>
-
-        {/* Desktop */}
-        <div className="hidden md:flex items-center gap-0.5">
-          {navLinks.map((link) => {
-            const isActive = active === link.href.slice(1)
-            return (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => { e.preventDefault(); handleLink(link.href) }}
-                className={`relative px-3.5 py-1.5 text-sm rounded-lg transition-colors duration-200 ${
-                  isActive ? "text-sky-400" : "text-slate-400 hover:text-white"
-                }`}
-              >
-                {link.label}
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-indicator"
-                    className="absolute bottom-0 left-3.5 right-3.5 h-px bg-sky-400 rounded"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-              </a>
-            )
-          })}
-          <button
-            onClick={onResumeOpen}
-            className="ml-3 flex items-center gap-1.5 px-4 py-1.5 text-sm font-medium rounded-full border border-sky-500/40 text-sky-400 hover:bg-sky-500/10 hover:border-sky-400 active:scale-[0.97] transition-all duration-150"
-            style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
-            aria-label="Open resume preview — popup with download"
+      <nav
+        aria-label="Primary navigation"
+        className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3.5 lg:px-8"
+      >
+        <div className="flex items-center gap-3">
+          <a
+            href="#about"
+            className="flex items-center gap-2 font-mono text-sm font-bold tracking-tight text-white transition-colors hover:text-sky-400"
           >
-            <FileText size={13} />
-            Resume
-          </button>
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-sky-500/10 text-sky-400 ring-1 ring-sky-500/20">
+              &gt;
+            </span>
+            <span className="tracking-wider uppercase">SAHIL MODAN</span>
+          </a>
+
+          {/* Live Platform Status Indicator */}
+          <div className="hidden items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[0.75rem] font-medium text-emerald-400 sm:flex">
+            <span className="pulse-beacon bg-emerald-400" />
+            <span className="font-mono">99.9% SLA · Operational</span>
+          </div>
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          className="md:hidden text-slate-400 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-colors"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            {mobileOpen ? (
-              <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
-                <X size={20} />
-              </motion.span>
-            ) : (
-              <motion.span key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
-                <Menu size={20} />
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </button>
-      </div>
+        <div className="flex items-center gap-2">
+          <ul className="hidden items-center gap-1 md:flex">
+            {links.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className="rounded-md px-3 py-1.5 font-mono text-xs font-medium text-slate-300 transition-colors hover:bg-white/[0.05] hover:text-white"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
 
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -12, scaleY: 0.95 }}
-            animate={{ opacity: 1, y: 0, scaleY: 1 }}
-            exit={{ opacity: 0, y: -8, scaleY: 0.97 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            style={{ transformOrigin: "top" }}
-            className="md:hidden mt-3 mx-4 rounded-2xl border border-white/10 bg-slate-900/98 backdrop-blur-2xl p-3 flex flex-col gap-0.5"
-          >
-            {navLinks.map((link) => (
+          <div className="flex items-center gap-2 pl-2">
+            <a
+              href="#terminal"
+              className="hidden items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-1.5 font-mono text-xs text-slate-300 transition-colors hover:border-sky-500/30 hover:bg-sky-500/10 hover:text-sky-300 lg:inline-flex"
+              title="Launch operations terminal"
+            >
+              <TerminalIcon size={13} />
+              <span>Shell</span>
+            </a>
+
+            <a
+              href={profile.resumePath}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-md border border-sky-500/30 bg-sky-500/10 px-3 py-1.5 font-mono text-xs font-semibold text-sky-300 transition-colors hover:bg-sky-500/20 hover:text-sky-200"
+            >
+              <DocumentIcon size={13} />
+              <span>Resume</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      {/* Swipeable rail on narrow mobile viewports */}
+      <div className="rail border-t border-white/[0.06] bg-[#090d16]/95 md:hidden">
+        <ul className="flex w-max items-center gap-1 px-4 py-2">
+          {links.map((link) => (
+            <li key={link.href}>
               <a
-                key={link.href}
                 href={link.href}
-                onClick={(e) => { e.preventDefault(); handleLink(link.href) }}
-                className={`px-4 py-2.5 text-sm rounded-xl transition-colors ${
-                  active === link.href.slice(1)
-                    ? "text-sky-400 bg-sky-500/8"
-                    : "text-slate-300 hover:text-white hover:bg-white/5"
-                }`}
+                className="block rounded-md px-2.5 py-1 font-mono text-xs whitespace-nowrap text-slate-400 transition-colors hover:bg-white/[0.05] hover:text-slate-200"
               >
                 {link.label}
               </a>
-            ))}
-            <div className="mt-1 pt-2 border-t border-white/8">
-              <button
-                onClick={() => {
-                  setMobileOpen(false)
-                  onResumeOpen()
-                }}
-                className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-sky-400 hover:bg-sky-500/8 rounded-xl transition-colors active:scale-[0.97]"
-              >
-                <FileText size={14} />
-                Preview & Download Resume
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </header>
   )
 }
