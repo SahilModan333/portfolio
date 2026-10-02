@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { CustomizationProvider, useCustomization } from "./context/CustomizationContext"
 import Nav from "./components/Nav"
 import GarageHero from "./components/sections/GarageHero"
 import CareerTimeline from "./components/sections/CareerTimeline"
@@ -14,9 +15,12 @@ import Footer from "./components/sections/Footer"
 import FloatingDock from "./components/ui/FloatingDock"
 import GlowCursor from "./components/ui/GlowCursor"
 import CommandPalette from "./components/ui/CommandPalette"
+import CustomizerModal from "./components/ui/CustomizerModal"
+import CustomizerTrigger from "./components/ui/CustomizerTrigger"
 
-export default function App() {
+function PortfolioApp() {
   const [isCmdOpen, setIsCmdOpen] = useState(false)
+  const { features } = useCustomization()
 
   const scrollToTerminal = () => {
     const el = document.getElementById("terminal")
@@ -25,8 +29,13 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[#070b14] text-slate-100 selection:bg-sky-500/30 selection:text-white">
-      {/* GSAP Ambient Glow Cursor */}
-      <GlowCursor />
+      {/* Optional phosphor CRT scanlines overlay */}
+      {features.enableScanlines && (
+        <div className="scanline-grid-overlay fixed inset-0 z-[99] pointer-events-none opacity-40" />
+      )}
+
+      {/* GSAP Ambient Glow Cursor (toggleable via features) */}
+      {features.enableGlow && <GlowCursor />}
 
       {/* Bryan Garage Style Command Palette (⌘K / Ctrl+K) */}
       <CommandPalette
@@ -34,6 +43,12 @@ export default function App() {
         onClose={() => setIsCmdOpen(false)}
         onOpenTerminal={scrollToTerminal}
       />
+
+      {/* Live Customizer Modal */}
+      <CustomizerModal />
+
+      {/* Floating Customizer Button */}
+      <CustomizerTrigger />
 
       {/* Skip to Content for Accessibility */}
       <a
@@ -43,7 +58,7 @@ export default function App() {
         Skip to main content
       </a>
 
-      {/* Minimal Top Header with ⌘K Trigger */}
+      {/* Minimal Top Header with ⌘K & Customizer Triggers */}
       <Nav
         onOpenCommandPalette={() => setIsCmdOpen(true)}
         onOpenTerminal={scrollToTerminal}
@@ -101,5 +116,13 @@ export default function App() {
       {/* Footer */}
       <Footer />
     </div>
+  )
+}
+
+export default function App() {
+  return (
+    <CustomizationProvider>
+      <PortfolioApp />
+    </CustomizationProvider>
   )
 }

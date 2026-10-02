@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { profile } from "../../data/profile"
+import { useCustomization } from "../../context/CustomizationContext"
 import {
   TerminalIcon,
   DocumentIcon,
@@ -14,7 +14,9 @@ import {
   GitBranchIcon,
   ShieldIcon,
   ActivityIcon,
+  SettingsIcon,
 } from "./Icons"
+import { sound } from "../../lib/sound"
 
 interface CommandItem {
   id: string
@@ -32,12 +34,14 @@ interface CommandPaletteProps {
 }
 
 export default function CommandPalette({ isOpen, onClose, onOpenTerminal }: CommandPaletteProps) {
+  const { config, setIsCustomizerOpen } = useCustomization()
   const [query, setQuery] = useState("")
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [copied, setCopied] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const navigateTo = (hash: string) => {
+    sound.playClick()
     onClose()
     const el = document.querySelector(hash)
     if (el) {
@@ -46,7 +50,8 @@ export default function CommandPalette({ isOpen, onClose, onOpenTerminal }: Comm
   }
 
   const copyEmail = () => {
-    navigator.clipboard.writeText(profile.email)
+    navigator.clipboard.writeText(config.personal.email)
+    sound.playSuccess()
     setCopied(true)
     setTimeout(() => {
       setCopied(false)
@@ -134,8 +139,20 @@ export default function CommandPalette({ isOpen, onClose, onOpenTerminal }: Comm
     },
     // Actions
     {
+      id: "act-customizer",
+      title: "Customize Portfolio & Theme",
+      category: "Actions",
+      icon: SettingsIcon,
+      action: () => {
+        sound.playClick()
+        onClose()
+        setIsCustomizerOpen(true)
+      },
+      hint: "⚙ Live Editor",
+    },
+    {
       id: "act-copy-email",
-      title: copied ? "Email Copied to Clipboard!" : `Copy Email (${profile.email})`,
+      title: copied ? "Email Copied to Clipboard!" : `Copy Email (${config.personal.email})`,
       category: "Actions",
       icon: copied ? CheckIcon : CopyIcon,
       action: copyEmail,
@@ -147,7 +164,8 @@ export default function CommandPalette({ isOpen, onClose, onOpenTerminal }: Comm
       category: "Actions",
       icon: DocumentIcon,
       action: () => {
-        window.open(profile.resumePath, "_blank")
+        sound.playClick()
+        window.open(config.personal.resumePath, "_blank")
         onClose()
       },
       hint: "PDF",
@@ -155,22 +173,24 @@ export default function CommandPalette({ isOpen, onClose, onOpenTerminal }: Comm
     // Social
     {
       id: "soc-github",
-      title: "GitHub Profile (@SahilModan333)",
+      title: `GitHub Profile (@${config.personal.github.split("/").pop() || "SahilModan333"})`,
       category: "Social",
       icon: GithubIcon,
       action: () => {
-        window.open(profile.github, "_blank")
+        sound.playClick()
+        window.open(config.personal.github, "_blank")
         onClose()
       },
       hint: "github.com",
     },
     {
       id: "soc-linkedin",
-      title: "LinkedIn Profile (in/sahil-modan)",
+      title: "LinkedIn Profile",
       category: "Social",
       icon: LinkedinIcon,
       action: () => {
-        window.open(profile.linkedin, "_blank")
+        sound.playClick()
+        window.open(config.personal.linkedin, "_blank")
         onClose()
       },
       hint: "linkedin.com",

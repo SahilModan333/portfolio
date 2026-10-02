@@ -179,6 +179,48 @@
 
   /* Glow effects */
   .glow-cyan {
-    box-shadow: 0 0 40px -10px rgba(56, 189, 248, 0.3);
+    box-shadow: 0 0 40px -10px var(--color-accent);
+  }
+
+  /* Scanline CRT overlay */
+  .scanline-grid-overlay {
+    background: linear-gradient(
+      rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
   }
 }
+
+/* Dynamic Theme Overrides */
+:root, [data-theme="azure"] {
+  --color-accent: #38bdf8;
+  --color-accent-hover: #0284c7;
+  --color-accent-subtle: rgba(56, 189, 248, 0.12);
+}
+
+[data-theme="emerald"] {
+  --color-accent: #10b981;
+  --color-accent-hover: #059669;
+  --color-accent-subtle: rgba(16, 185, 129, 0.14);
+}
+
+[data-theme="violet"] {
+  --color-accent: #a855f7;
+  --color-accent-hover: #7e22ce;
+  --color-accent-subtle: rgba(168, 85, 247, 0.14);
+}
+
+[data-theme="amber"] {
+  --color-accent: #f59e0b;
+  --color-accent-hover: #d97706;
+  --color-accent-subtle: rgba(245, 158, 11, 0.14);
+}
+
+[data-theme="monochrome"] {
+  --color-accent: #e2e8f0;
+  --color-accent-hover: #cbd5e1;
+  --color-accent-subtle: rgba(226, 232, 240, 0.14);
+}
+

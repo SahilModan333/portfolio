@@ -1,11 +1,15 @@
 import { useState, useRef } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { timelineYears, timelineEntries, type TimelineEntry } from "../../data/timeline"
+import { useCustomization } from "../../context/CustomizationContext"
+import { timelineYears, type TimelineEntry } from "../../data/timeline"
 import { ArrowUpRightIcon, CheckIcon, ShieldIcon, ServerIcon } from "../ui/Icons"
 import SpotlightCard from "../ui/SpotlightCard"
+import { sound } from "../../lib/sound"
 
 export default function CareerTimeline() {
-  const [activeEntry, setActiveEntry] = useState<TimelineEntry | null>(timelineEntries[0])
+  const { config } = useCustomization()
+  const entries = config.timeline as TimelineEntry[]
+  const [activeEntry, setActiveEntry] = useState<TimelineEntry | null>(entries[0] || null)
   const scrollRef = useRef<HTMLDivElement>(null)
 
   // Calculate year position percentage across 2016 to 2027
@@ -87,7 +91,7 @@ export default function CareerTimeline() {
 
               {/* Career Bars */}
               <div className="relative mt-8 space-y-4 pt-2">
-                {timelineEntries.map((entry) => {
+                {entries.map((entry) => {
                   const left = getLeftPercent(entry.fromYear)
                   const width = getWidthPercent(entry.fromYear, entry.toYear)
                   const isSelected = activeEntry?.id === entry.id
@@ -95,7 +99,10 @@ export default function CareerTimeline() {
                   return (
                     <div key={entry.id} className="relative h-14">
                       <motion.button
-                        onClick={() => setActiveEntry(entry)}
+                        onClick={() => {
+                          sound.playClick()
+                          setActiveEntry(entry)
+                        }}
                         whileHover={{ scale: 1.01, y: -2 }}
                         whileTap={{ scale: 0.99 }}
                         className={`absolute top-0 flex items-center justify-between rounded-xl border px-3.5 py-2.5 text-left transition-all shadow-lg ${

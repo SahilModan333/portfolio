@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-import { profile } from "../data/profile"
-import { DocumentIcon, TerminalIcon } from "./ui/Icons"
+import { useCustomization } from "../context/CustomizationContext"
+import { DocumentIcon, TerminalIcon, SettingsIcon } from "./ui/Icons"
+import { sound } from "../lib/sound"
 
 interface NavProps {
   onOpenCommandPalette: () => void
@@ -8,6 +9,7 @@ interface NavProps {
 }
 
 export default function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) {
+  const { config, setIsCustomizerOpen } = useCustomization()
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -33,27 +35,44 @@ export default function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) 
         <div className="flex items-center gap-3">
           <a
             href="#about"
+            onClick={() => sound.playClick()}
             className="flex items-center gap-2 font-mono text-sm font-bold tracking-tight text-white transition-colors hover:text-sky-400"
           >
             <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-sky-500/10 text-sky-400 ring-1 ring-sky-500/20">
               &gt;
             </span>
-            <span className="tracking-wider uppercase">SAHIL MODAN</span>
+            <span className="tracking-wider uppercase">{config.personal.name}</span>
           </a>
 
           <div className="hidden items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[0.7rem] font-medium text-emerald-400 sm:flex">
             <span className="pulse-beacon bg-emerald-400" />
-            <span className="font-mono">99.9% SLA · Operational</span>
+            <span className="font-mono">{config.personal.statusBeacon || "99.9% SLA · Operational"}</span>
           </div>
         </div>
 
         {/* Bryan Garage Style Actions */}
         <div className="flex items-center gap-2.5">
+          {/* Customize Portfolio Trigger */}
+          <button
+            type="button"
+            onClick={() => {
+              sound.playClick()
+              setIsCustomizerOpen(true)
+            }}
+            className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] font-mono text-xs text-slate-300 transition-colors hover:border-sky-400/40 hover:bg-sky-500/10 hover:text-sky-400"
+            title="Customize Portfolio (Theme, Info & FX)"
+          >
+            <SettingsIcon size={14} />
+          </button>
+
           {/* Jump to (⌘K) Command Trigger */}
           <button
             id="cmd-trigger"
             type="button"
-            onClick={onOpenCommandPalette}
+            onClick={() => {
+              sound.playClick()
+              onOpenCommandPalette()
+            }}
             className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-1.5 font-mono text-xs text-slate-300 transition-colors hover:border-sky-400/40 hover:bg-sky-500/10 hover:text-white"
             title="Jump to... (⌘K / Ctrl+K)"
           >
@@ -67,7 +86,10 @@ export default function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) 
           {/* Quick Terminal Trigger */}
           <button
             type="button"
-            onClick={onOpenTerminal}
+            onClick={() => {
+              sound.playClick()
+              onOpenTerminal()
+            }}
             className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] font-mono text-xs text-slate-300 transition-colors hover:border-sky-400/40 hover:bg-sky-500/10 hover:text-sky-400"
             title="Launch Terminal Shell"
           >
@@ -76,9 +98,10 @@ export default function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) 
 
           {/* Download Resume Button */}
           <a
-            href={profile.resumePath}
+            href={config.personal.resumePath}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => sound.playClick()}
             className="inline-flex items-center gap-1.5 rounded-xl border border-sky-500/30 bg-sky-500/10 px-3.5 py-1.5 font-mono text-xs font-semibold text-sky-300 transition-colors hover:bg-sky-500/20 hover:text-sky-200"
           >
             <DocumentIcon size={13} />
@@ -90,3 +113,4 @@ export default function Nav({ onOpenCommandPalette, onOpenTerminal }: NavProps) 
     </header>
   )
 }
+

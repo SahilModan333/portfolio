@@ -1,8 +1,10 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { projects, type Project } from "../../data/projects"
+import { useCustomization } from "../../context/CustomizationContext"
+import type { FeaturedProject } from "../../data/portfolio.config"
 import Section from "../ui/Section"
 import { GithubIcon, ArrowUpRightIcon, CodeIcon, CheckIcon, CopyIcon, CloudIcon, ServerIcon, ActivityIcon, CpuIcon } from "../ui/Icons"
+import { sound } from "../../lib/sound"
 
 const projectGlyphs: Record<string, typeof CloudIcon> = {
   "azure-devops-infra-pipeline": CloudIcon,
@@ -11,20 +13,21 @@ const projectGlyphs: Record<string, typeof CloudIcon> = {
   "ansible-fleet-automation": ServerIcon,
 }
 
-const kickers: Record<string, string> = {
+const defaultKickers: Record<string, string> = {
   "azure-devops-infra-pipeline": "01 · INFRASTRUCTURE · TERRAFORM & AZURE",
   "containerized-aks-deployment": "02 · ORCHESTRATION · DOCKER & KUBERNETES",
   "monitoring-observability": "03 · OBSERVABILITY · PROMETHEUS & GRAFANA",
   "ansible-fleet-automation": "04 · AUTOMATION · ANSIBLE & LINUX FLEET",
 }
 
-function GarageCell({ project }: { project: Project }) {
+function GarageCell({ project }: { project: FeaturedProject }) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [copied, setCopied] = useState(false)
   const Glyph = projectGlyphs[project.id] || CloudIcon
-  const kicker = kickers[project.id] || "00 · PRODUCTION BUILD"
+  const kicker = project.kicker || defaultKickers[project.id] || "00 · PRODUCTION BUILD"
 
   const handleCopy = (code: string) => {
+    sound.playSuccess()
     navigator.clipboard.writeText(code)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
@@ -198,6 +201,8 @@ function GarageCell({ project }: { project: Project }) {
 }
 
 export default function GarageGrid() {
+  const { config } = useCustomization()
+
   return (
     <Section
       id="projects"
@@ -206,10 +211,11 @@ export default function GarageGrid() {
       intro="Four core architectural builds: multi-stage YAML pipelines, containerized AKS platforms, unified Prometheus observability, and automated Ansible fleet management."
     >
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {projects.map((project) => (
+        {config.projects.map((project) => (
           <GarageCell key={project.id} project={project} />
         ))}
       </div>
     </Section>
   )
 }
+
