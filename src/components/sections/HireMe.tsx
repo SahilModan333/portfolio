@@ -1,17 +1,14 @@
 import { useState } from "react"
-import { portfolioConfig } from "../../data/portfolio.config"
+import { profile } from "../../data/profile"
 import { MailIcon, DocumentIcon, GithubIcon, LinkedinIcon, CopyIcon, CheckIcon, ArrowUpRightIcon, ShieldIcon } from "../ui/Icons"
 import MagneticButton from "../ui/MagneticButton"
 import SpotlightCard from "../ui/SpotlightCard"
-import { sound } from "../../lib/sound"
 
 export default function HireMe() {
-  const p = portfolioConfig.personal
   const [copied, setCopied] = useState(false)
 
   const copyEmail = () => {
-    sound.playSuccess()
-    navigator.clipboard.writeText(p.email)
+    navigator.clipboard.writeText(profile.email)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -67,13 +64,10 @@ export default function HireMe() {
 
             {/* Direct Action Buttons with Magnetic Pull */}
             <div className="mt-10 flex flex-wrap items-center gap-4">
-              <MagneticButton href={`mailto:${p.email}?subject=DevOps%20Opportunity%20%E2%80%94%20from%20sahildevops.me`}>
-                <span
-                  onClick={() => sound.playClick()}
-                  className="inline-flex items-center gap-2 rounded-xl bg-sky-500 px-6 py-3.5 font-mono text-sm font-bold text-slate-950 shadow-xl shadow-sky-500/25 transition-all hover:bg-sky-400 active:scale-95"
-                >
+              <MagneticButton href={`mailto:${profile.email}?subject=DevOps%20Opportunity%20%E2%80%94%20from%20sahildevops.me`}>
+                <span className="inline-flex items-center gap-2 rounded-xl bg-sky-500 px-6 py-3.5 font-mono text-sm font-bold text-slate-950 shadow-xl shadow-sky-500/25 transition-all hover:bg-sky-400 active:scale-95">
                   <MailIcon size={18} />
-                  <span>Hire Me · {p.email}</span>
+                  <span>Hire Me · {profile.email}</span>
                 </span>
               </MagneticButton>
 
@@ -95,11 +89,8 @@ export default function HireMe() {
                 )}
               </button>
 
-              <MagneticButton href={p.resumePath} target="_blank" rel="noopener noreferrer">
-                <span
-                  onClick={() => sound.playClick()}
-                  className="inline-flex items-center gap-2 rounded-xl border border-sky-500/40 bg-sky-500/10 px-5 py-3.5 font-mono text-sm font-semibold text-sky-300 transition-colors hover:bg-sky-500/20"
-                >
+              <MagneticButton href={profile.resumePath} target="_blank" rel="noopener noreferrer">
+                <span className="inline-flex items-center gap-2 rounded-xl border border-sky-500/40 bg-sky-500/10 px-5 py-3.5 font-mono text-sm font-semibold text-sky-300 transition-colors hover:bg-sky-500/20">
                   <DocumentIcon size={16} />
                   <span>Download Résumé (PDF)</span>
                   <ArrowUpRightIcon size={13} className="text-sky-400" />
@@ -110,38 +101,35 @@ export default function HireMe() {
             {/* Operational SLA & Availability Details */}
             <div className="mt-10 border-t border-white/[0.08] pt-6 text-xs text-slate-400">
               <p className="font-mono text-slate-300">
-                Expected response: <strong className="text-sky-400">within 24 hours</strong> · Based in {p.location} · {p.statusBeacon}
+                Expected response: <strong className="text-sky-400">within 24 hours</strong> · Based in Bengaluru (IST) · Available for full-time engineering &amp; high-impact consulting
               </p>
 
               <div className="mt-4 flex flex-wrap items-center gap-6 font-mono text-slate-300">
                 <a
-                  href={p.github}
+                  href={profile.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => sound.playClick()}
                   className="inline-flex items-center gap-1.5 hover:text-sky-400 transition-colors"
                 >
                   <GithubIcon size={15} />
-                  <span>GitHub: @{p.github.split("/").pop()}</span>
+                  <span>GitHub: SahilModan333</span>
                 </a>
 
                 <a
-                  href={p.linkedin}
+                  href={profile.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => sound.playClick()}
                   className="inline-flex items-center gap-1.5 hover:text-sky-400 transition-colors"
                 >
                   <LinkedinIcon size={15} />
-                  <span>LinkedIn</span>
+                  <span>LinkedIn: in/sahil-modan</span>
                 </a>
 
                 <a
-                  href={`tel:${p.phone.replace(/[^+\d]/g, "")}`}
-                  onClick={() => sound.playClick()}
+                  href={`tel:${profile.phone.replace(/[^+\d]/g, "")}`}
                   className="inline-flex items-center gap-1.5 hover:text-sky-400 transition-colors"
                 >
-                  <span>Direct: {p.phone}</span>
+                  <span>Direct: {profile.phone}</span>
                 </a>
               </div>
             </div>
