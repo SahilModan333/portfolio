@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import Nav from "./components/Nav"
 import Hero from "./components/sections/Hero"
 import Work from "./components/sections/Work"
@@ -13,6 +14,13 @@ import FloatingDock from "./components/ui/FloatingDock"
 import GlowCursor from "./components/ui/GlowCursor"
 
 export default function App() {
+  useEffect(() => {
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual"
+    }
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className="relative min-h-screen bg-[#080b11] text-slate-100 selection:bg-sky-500/30 selection:text-white">
       {/* GSAP Ambient Glow Cursor */}

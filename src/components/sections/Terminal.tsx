@@ -65,13 +65,20 @@ export default function Terminal() {
   const [inputVal, setInputVal] = useState("")
   const [cmdIndex, setCmdIndex] = useState<number>(-1)
   const [pastCommands, setPastCommands] = useState<string[]>([])
-  const terminalEndRef = useRef<HTMLDivElement>(null)
+  const terminalBodyRef = useRef<HTMLDivElement>(null)
+  const isInitialMount = useRef(true)
 
   const scrollToBottom = () => {
-    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    if (terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight
+    }
   }
 
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false
+      return
+    }
     scrollToBottom()
   }, [history])
 
@@ -316,7 +323,10 @@ Location: ${profile.location}`,
         </div>
 
         {/* Terminal Screen Body */}
-        <div className="max-h-[460px] min-h-[320px] overflow-y-auto p-5 font-mono text-xs leading-relaxed">
+        <div
+          ref={terminalBodyRef}
+          className="max-h-[460px] min-h-[320px] overflow-y-auto p-5 font-mono text-xs leading-relaxed"
+        >
           {history.map((line) => (
             <div key={line.id} className="mb-2">
               {line.type === "input" && (
@@ -335,7 +345,6 @@ Location: ${profile.location}`,
               )}
             </div>
           ))}
-          <div ref={terminalEndRef} />
         </div>
 
         {/* Prompt Input Form */}
